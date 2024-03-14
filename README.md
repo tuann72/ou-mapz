@@ -6,6 +6,21 @@ We will use Google Map API, Firebase for data storage, and Beautiful Soup for we
 # Version
 Current version is 1.0.0
 
+# To Pull Request and Merge Request
+1. Fork the repository
+2. git clone https://github.com/tuann72/OU-Mapz
+3. create a new branch using "git checkout -b <branch_name>"
+4. Make your changed 
+5. To commit use
+6. git add .
+git commit -m "Your commit message here"
+7. Then push to your forked repository
+git push origin <branch_name>
+8. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
+
+
+
+
 
 # Getting Started to launch the App
 
