@@ -6,6 +6,9 @@ We will use Google Map API, Firebase for data storage, and Beautiful Soup for we
 # Version
 Current version is 1.0.0
 
+# File Layout
+- the main UI of the app is based off of App.tsx
+
 # To Pull Request and Merge Request
 1. Fork the repository
 2. git clone https://github.com/tuann72/OU-Mapz
