@@ -8,6 +8,7 @@ Current version is 1.0.0
 
 # File Layout
 - the main UI of the app is based off of App.tsx
+- This is based in the function App, in the return statement
 
 # To Pull Request and Merge Request
 1. Fork the repository
