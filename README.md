@@ -1,7 +1,7 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Technology
-- Google Map API to integrate a interactive map.
+- Google Map API v1.11.3 to integrate a interactive map.
 - Firebase v13.1 as a backend and user authentication.
 - BeautifulSoup4 for webscraping.
 
