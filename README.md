@@ -1,7 +1,9 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Technology
-We will use Google Map API, Firebase for data storage, and Beautiful Soup for webscraping
+- Google Map API to integrate a interactive map.
+- Firebase as a backend and user authentication.
+- BeautifulSoup4 for webscraping.
 
 # Version
 Current version is 1.0.0
@@ -15,7 +17,7 @@ Current version is 1.0.0
 ## Use
 1. Fork the repository
 2. Clone Repository
-```
+```bash
 git clone https://github.com/tuann72/OU-Mapz
 ```
 
@@ -23,7 +25,7 @@ git clone https://github.com/tuann72/OU-Mapz
 
 Follow steps 1-2 under the Use header.
 
-3. Create a new branch using 
+3. Create a new branch by entering 
 ```bash
 git checkout -b <branch_name>
 ```
@@ -43,7 +45,7 @@ git push origin <branch_name>
 
 
 
-# Getting Started to launch the App
+# To launch the App
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
