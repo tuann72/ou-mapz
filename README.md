@@ -44,6 +44,9 @@ git push origin <branch_name>
 7. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
 
 
+# For help withSetup
+- visit https://reactnative.dev/docs/environment-setup
+
 
 # To launch the App
 
