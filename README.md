@@ -7,22 +7,39 @@ We will use Google Map API, Firebase for data storage, and Beautiful Soup for we
 Current version is 1.0.0
 
 # File Layout
-- the main UI of the app is based off of App.tsx
+- The main UI of the app is based off of App.tsx
 - This is based in the function App, in the return statement
 
-# To Pull Request and Merge Request
+# How to use/contribute
+
+## Use
 1. Fork the repository
-2. git clone https://github.com/tuann72/OU-Mapz
-3. create a new branch using "git checkout -b <branch_name>"
-4. Make your changed 
-5. To commit use
-6. git add .
-git commit -m "Your commit message here"
-7. Then push to your forked repository
+2. Clone Repository
+```
+git clone https://github.com/tuann72/OU-Mapz
+```
+
+## Contribute
+
+Follow steps 1-2 under the Use header.
+
+3. Create a new branch using 
+```bash
+git checkout -b <branch_name>
+```
+4. Staged any changes.
+```bash
+git add .
+```
+5. Commit changes to your local repository.
+```bash
+git commit -m "Changes ... "
+```
+6. Push to your forked repository.
+```bash
 git push origin <branch_name>
-8. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
-
-
+```
+7. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
 
 
 
