@@ -3,7 +3,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 # Technology
 - Google Map API v1.11.3 to integrate a interactive map.
 - Firebase v13.1 as a backend and user authentication.
-- BeautifulSoup4 for webscraping.
+- BeautifulSoup4 for webscraping. v4.12.3
 - React Native v0.73 and React Native CLI for frontend
 
 # Version
