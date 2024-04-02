@@ -27,7 +27,8 @@ Current version is 1.0.0
 ```bash
 git clone https://github.com/tuann72/OU-Mapz
 ```
-npm -i (to download node modules)
+ Download node modules ```npm -i ```
+
 
 ## Contribute
 
