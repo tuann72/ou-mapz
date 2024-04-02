@@ -31,7 +31,8 @@ git clone https://github.com/tuann72/OU-Mapz
  ```bash 
  npm -i 
 ```
-or ```bash
+or 
+```bash
 npm install next
 ```
 
