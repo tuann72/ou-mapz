@@ -1,6 +1,62 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Technology
+
+- Google Map API v1.11.3 to integrate a interactive map.
+- Firebase v13.1 as a backend and user authentication.
+- BeautifulSoup4 for webscraping. v4.12.3
+- React v18 for frontend
+  - Nextjs Framework v.14.1.4
+
+# Version
+
+Current version is 1.0.0
+
+# File Layout
+
+- The main UI of the app is based off of App.tsx
+- This is based in the function App, in the return statement
+
+# How to use/contribute
+
+## Use
+
+1. Fork the repository
+2. Clone Repository
+
+```bash
+git clone https://github.com/tuann72/OU-Mapz
+```
+
+## Contribute
+
+Follow steps 1-2 under the Use header.
+
+3. Create a new branch by entering
+
+```bash
+git checkout -b <branch_name>
+```
+
+4. Staged any changes.
+
+```bash
+git add .
+```
+
+5. Commit changes to your local repository.
+
+```bash
+git commit -m "Changes ... "
+```
+
+6. Push to your forked repository.
+
+```bash
+git push origin <branch_name>
+```
+
+7. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
 
 First, run the development server:
 
