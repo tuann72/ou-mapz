@@ -59,7 +59,7 @@ git push origin <branch_name>
 7. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
 
 First node modules
-- run npm -i
+# - run npm -i
 Second, run the development server:
 
 ```bash
