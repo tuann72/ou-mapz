@@ -29,7 +29,10 @@ git clone https://github.com/tuann72/OU-Mapz
 ```
  Download node modules 
  ```bash 
- npm -i
+ npm -i 
+```
+or ```bash
+npm install next
 ```
 
 
