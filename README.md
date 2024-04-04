@@ -29,7 +29,12 @@ git clone https://github.com/tuann72/OU-Mapz
 ```
  Download node modules 
  ```bash 
- npm -i ```
+ npm -i 
+```
+or 
+```bash
+npm install next
+```
 
 
 ## Contribute
@@ -61,7 +66,6 @@ git push origin <branch_name>
 ```
 
 7. Go to forked branch in GIT and click 3 dots and click on "Create Pull Request"
-
 
 First, run the development server:
 
