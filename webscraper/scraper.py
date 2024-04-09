@@ -21,18 +21,50 @@ URL = "https://ou.campuslabs.com/engage/events"
 
 # Initialize driver
 def intialize_browser():
+    # Opens the URL in the browser.
     driver.get(URL)
-    clickLoadMore()
+
+    clickShowPastEvents()
 
 
 # Select LOAD MORE btn
 def clickLoadMore():
+    # Waits for page to render.
     WebDriverWait(driver, 10)
+    # Locates the Load More button.
     loadMoreBtn = driver.find_element(
         By.XPATH,
         "//button[@tabindex='0' and contains(@style, 'text-align: center;')]/div/div/span[text()='Load More']",
     )
+    # Clicks the Load More button.
     loadMoreBtn.click()
+
+
+# Select Show Past Events
+def clickShowPastEvents():
+    # Waits for page to render.
+    WebDriverWait(driver, 10)
+    # Locates the Show Past Events button.
+    showPastEvents = driver.find_element(
+        By.XPATH,
+        "//button[@class='MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary' and @tabindex='0' and @type='button']/span[text()='Show Past Events']",
+    )
+    # Clicks the Show Past Events button.
+    showPastEvents.click()
+
+
+# Select Card
+
+
+def clickEventCard():
+    pass
+
+
+# Return to event page
+
+
+def returnToEventPage():
+    pass
 
 
 def compileData():
