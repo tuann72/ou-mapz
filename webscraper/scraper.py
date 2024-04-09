@@ -28,7 +28,10 @@ def intialize_browser():
 # Select LOAD MORE btn
 def clickLoadMore():
     WebDriverWait(driver, 10)
-    loadMoreBtn = driver.find_element("xpath", "//button")
+    loadMoreBtn = driver.find_element(
+        By.XPATH,
+        "//button[@tabindex='0' and contains(@style, 'text-align: center;')]/div/div/span[text()='Load More']",
+    )
     loadMoreBtn.click()
 
 
