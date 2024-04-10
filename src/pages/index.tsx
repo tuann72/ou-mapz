@@ -1,9 +1,10 @@
 // pages/index.tsx
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
+import MyMap from '../components/MyMap'; 
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+ /* const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,7 +46,29 @@ const LoginPage = () => {
         </form>
       </div>
     </div>
-  );
-};
+  ); */
+
+
+
+
+
+
+// bypassing the login page to work on the Map directly
+
+return(
+
+  <div>
+    
+    <MyMap/>
+
+  </div>
+
+);
+
+
+
+}; 
+
+
 
 export default LoginPage;
