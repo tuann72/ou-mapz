@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import MyMap from '../components/MyMap'; 
 
 const LoginPage = () => {
- /* const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,7 +46,7 @@ const LoginPage = () => {
         </form>
       </div>
     </div>
-  ); */
+  ); 
 
 
 
@@ -55,7 +55,7 @@ const LoginPage = () => {
 
 // bypassing the login page to work on the Map directly
 
-return(
+/* return(
 
   <div>
     
@@ -63,7 +63,7 @@ return(
 
   </div>
 
-);
+); */
 
 
 
