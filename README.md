@@ -35,6 +35,10 @@ or
 ```bash
 npm install next
 ```
+also install firebase
+```bash
+npm install firebase
+```
 
 
 ## Contribute
