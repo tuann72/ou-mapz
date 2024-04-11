@@ -18,23 +18,36 @@ const MyMap = () => {
         mapID: "34793541114f138",
       });
     
-  //35.21241589040634, -97.44399512973642
+
+      const coustIcons = [
+        {
+          url: 'ou-marker.png', // URL for the first type of icon
+          scaledSize: new google.maps.Size(100, 100), // Scale the icon size
+        },
+        {
+          //url: 'second-marker-icon.png', // URL for the second type of icon
+          //scaledSize: new google.maps.Size(50, 50), // Scale the icon size
+        },
+        // Add more icons as needed
+      ];
+      
       // Array of marker data
       const markersData = [
         {
           position: { lat: 35.21204029964204, lng: -97.4445950663006 },
           title: 'First Marker - Hideaway pizza',
-         // icon: '/path/to/your/first-icon.svg', // Optional custom icon
+          iconType: 0, // Reference to the first icon in commonIcons array
+          
         },
         {
           position: { lat:  35.21152589365213, lng: -97.44452510989818 },
           title: 'Second Marker - Pinkberry',
-          //icon: '/path/to/your/second-icon.svg', // Optional custom icon
+          iconType: 0, // Reference to the first icon in commonIcons array
         },
         {
           position: { lat: 35.21241589040634, lng: -97.44399512973642 },
           title: 'Third Marker',
-          //icon: '/path/to/your/second-icon.svg', // Optional custom icon
+          iconType: 0, // Reference to the first icon in commonIcons array
         },
         
         // Add more markers as needed
@@ -46,7 +59,7 @@ const MyMap = () => {
           position: markerData.position,
           map: map,
           title: markerData.title,
-         // icon: markerData.icon, // This is optional if you're using custom icons
+          icon: coustIcons[markerData.iconType], // Use iconType to select the correct icon from commonIcons
         });
 
         // Create an info window
