@@ -1,4 +1,6 @@
 // pages/index.tsx
+
+/*
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -13,6 +15,8 @@ Firebase functions(handleUserCreation, loginUser, addData, and getData)
 were created by Vishnu Patel
 */
 
+
+/*
 const LoginPage = () => {
   // email variable that is changed in input
   let [email, setEmail] = useState('');
@@ -95,7 +99,7 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
 }
 
 
-  return (
+ /* return (
     
     <div className={styles.container}>
       <h1 className={styles.mainTitle}>OU Mapz</h1>
@@ -133,4 +137,42 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   
 };
 
+
+export default LoginPage; 
+
+*/
+
+
+
+
+
+// TEST CODE (AUM)
+
+// pages/index.tsx
+import React from 'react';
+import { useRouter } from 'next/router';
+import styles from '../styles/Home.module.css';
+
+const LoginPage = () => {
+  const router = useRouter();
+
+  const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push('/map'); // Adjust this path if your map page has a different URL
+  };
+
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.mainTitle}>OU Mapz</h1>
+      <div className={styles.loginFormContainer}>
+        <form onSubmit={loginUser} className={styles.loginForm}>
+          <h2 className={styles.loginTitle}>Sign in</h2>
+          <button type="submit" className={styles.loginButton}>Sign in</button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export default LoginPage;
+

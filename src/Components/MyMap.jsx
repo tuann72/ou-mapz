@@ -1,55 +1,39 @@
-// components/MyMap.js
 import React, { useEffect } from 'react';
 
 const MyMap = () => {
   useEffect(() => {
-
-    // Append the Google Maps script to the document head
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDvKQYirZCBH07HDKlySghSajv4_69q9OM&callback=initMap`;
-    script.async = true;
-    document.head.appendChild(script);
-
-    
-    window.initMap = () => {
+    // Make sure the initMap function is defined globally before loading the script
+    window.initMap = function() {
       const map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 35.20037131434744, lng: -97.44398323511265 },
         zoom: 13,
-        mapID: "34793541114f138",
+        mapId: "dc3746cfb50352a8",
       });
-    
 
-      const coustIcons = [
+      const customIcons = [
         {
           url: 'ou-marker.png', // URL for the first type of icon
           scaledSize: new google.maps.Size(100, 100), // Scale the icon size
         },
-        {
-          //url: 'second-marker-icon.png', // URL for the second type of icon
-          //scaledSize: new google.maps.Size(50, 50), // Scale the icon size
-        },
         // Add more icons as needed
       ];
-      
-      // Array of marker data
+
       const markersData = [
         {
           position: { lat: 35.21204029964204, lng: -97.4445950663006 },
           title: 'First Marker - Hideaway pizza',
-          iconType: 0, // Reference to the first icon in commonIcons array
-          
+          iconType: 0, // Reference to the first icon in customIcons array
         },
         {
-          position: { lat:  35.21152589365213, lng: -97.44452510989818 },
+          position: { lat: 35.21152589365213, lng: -97.44452510989818 },
           title: 'Second Marker - Pinkberry',
-          iconType: 0, // Reference to the first icon in commonIcons array
+          iconType: 0, // Reference to the first icon in customIcons array
         },
         {
           position: { lat: 35.21241589040634, lng: -97.44399512973642 },
           title: 'Third Marker',
-          iconType: 0, // Reference to the first icon in commonIcons array
+          iconType: 0, // Reference to the first icon in customIcons array
         },
-        
         // Add more markers as needed
       ];
 
@@ -59,7 +43,7 @@ const MyMap = () => {
           position: markerData.position,
           map: map,
           title: markerData.title,
-          icon: coustIcons[markerData.iconType], // Use iconType to select the correct icon from commonIcons
+          icon: customIcons[markerData.iconType], // Use iconType to select the correct icon from customIcons
         });
 
         // Create an info window
@@ -76,9 +60,17 @@ const MyMap = () => {
         marker.addListener('mouseout', () => {
           infoWindow.close();
         });
-      }); // Note the closing of the forEach loop 
+      });
+    }; // This closes the window.initMap function
 
-    }; // This closing brace ends the window.initMap function
+    // Check if the Google Maps script is already appended to prevent duplicates
+    if (!document.querySelector('script[src^="https://maps.googleapis.com"]')) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.defer = true;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDvKQYirZCBH07HDKlySghSajv4_69q9OM&callback=initMap`;
+      document.head.appendChild(script);
+    }
 
   }, []); // This closes the useEffect hook
 
