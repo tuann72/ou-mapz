@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import {auth, db} from '../../firebase.js';
 import { create } from 'domain';
 import {collection, addDoc, setDoc, doc, getDoc} from 'firebase/firestore';
+import { useRouter } from 'next/router';
 
 /*
 This page was created by Mahnoor Saeed and Vishnu Patel
@@ -14,6 +15,7 @@ were created by Vishnu Patel
 */
 
 const LoginPage = () => {
+  const pageRouter = useRouter()
   // email variable that is changed in input
   let [email, setEmail] = useState('');
   // password varibale to be changed in input
@@ -126,6 +128,7 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
           </div>
           <a href="#" className={styles.forgotPassword}>Forgot password?</a>
           <button type="submit" className={styles.loginButton}>Sign in</button>
+          <button onClick={() => pageRouter.push('/map')}type="submit" className={styles.loginButton}>Continue as Guest</button>
         </form>
       </div>
     </div>
