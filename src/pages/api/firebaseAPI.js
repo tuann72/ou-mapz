@@ -42,6 +42,7 @@ const handleUserCreation = (email, password) => {
     .then((userCredential) => {
         // User created and get user info
         const user = userCredential.user;
+        
         return user;
     })
     .catch((error) => {

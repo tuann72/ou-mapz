@@ -15,6 +15,7 @@ const MapPage = () => {
     // Implement search functionality here
     // You might want to filter your suggestions based on the input
   };
+  
 
   // Function to handle suggestion selection
   const handleSuggestionClick = (suggestion) => {
@@ -37,7 +38,9 @@ const MapPage = () => {
             className={styles.searchInput}
           />
           {showSuggestions && (
+            
             <ul className={styles.suggestions}>
+            
               {suggestions.map((suggestion, index) => (
                 <li
                   key={index}
@@ -46,17 +49,25 @@ const MapPage = () => {
                 >
                   {suggestion}
                 </li>
+                
               ))}
             </ul>
           )}
         </div>
+        <button className={styles.addMarkerButton}> hello</button>
       </aside>
+
       <main className={styles.mapContainer}>
         <h1 className={styles.title}>OU Mapz</h1>
         <MyMap />
+        
       </main>
     </div>
   );
 };
 
 export default MapPage;
+
+
+
+
