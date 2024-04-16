@@ -87,6 +87,11 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   .then((userCredential) => {
     // Signed in, so get user information/ credential
     const user = userCredential.user;
+
+    pageRouter.push('/map')
+    setTimeout(function(){}, 100);
+    window.location.reload();
+    
     // ...
   })
   .catch((error) => {
