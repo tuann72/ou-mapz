@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 
@@ -25,11 +25,20 @@ eventLinks = []
 def intialize_scraper():
     # Opens the URL in the browser.
     driver.get(URL)
-    for i in range(0, 5):
-        time.sleep(3)
-        clickLoadMore()
+    while True:
+        try:
+            time.sleep(3)
+            clickLoadMore()
+        except NoSuchElementException:
+            break
+
+    # Scrape links
     time.sleep(3)
     eventLinks = scrapeLinks()
+
+    # Switch to new window
+    time.sleep(2)
+    driver.get(eventLinks[0])
 
 
 # Opens a new tab.
