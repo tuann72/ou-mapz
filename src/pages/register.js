@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {auth, db} from '../../firebase.js';
 import styles from '../styles/Home.module.css';
+import { useRouter } from 'next/router';
 
 /*
 This page was created by Tristen Pham
@@ -13,6 +14,7 @@ function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const pageRouter = useRouter()
 
     const handleUserCreation = (e) => {
         // prevent default form behavior
@@ -22,6 +24,7 @@ function RegisterPage() {
           .then((userCredential) => {
             // User created and get user info
             const user = userCredential.user;
+            pageRouter.push('/map')
           })
           .catch((error) => {
             // Handle errors here
