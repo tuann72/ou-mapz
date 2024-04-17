@@ -18,6 +18,7 @@ driver = webdriver.Chrome(
 
 # URL of link to scrape
 URL = "https://ou.campuslabs.com/engage/events"
+eventURL = ""
 
 
 # Initialize driver
@@ -26,6 +27,11 @@ def intialize_browser():
     driver.get(URL)
 
     clickLoadMore()
+
+
+# Opens a new tab.
+def newTab():
+    pass
 
 
 # Select LOAD MORE btn
