@@ -18,26 +18,27 @@ driver = webdriver.Chrome(
 
 # URL of link to scrape
 URL = "https://ou.campuslabs.com/engage/events"
-eventURL = ""
+eventLinks = []
 
 
 # Initialize driver
-def intialize_browser():
+def intialize_scraper():
     # Opens the URL in the browser.
     driver.get(URL)
-
-    clickLoadMore()
+    for i in range(0, 5):
+        time.sleep(3)
+        clickLoadMore()
+    time.sleep(3)
+    eventLinks = scrapeLinks()
 
 
 # Opens a new tab.
 def newTab():
-    pass
+    driver.execute_script("window.open('');")
 
 
 # Select LOAD MORE btn
 def clickLoadMore():
-    # Waits for page to render.
-    time.sleep(5)
     # Locates the Load More button.
     loadMoreBtn = driver.find_element(
         By.XPATH,
@@ -47,7 +48,7 @@ def clickLoadMore():
     loadMoreBtn.click()
 
 
-# Select Show Past Events
+# Select Show Past Events.
 def clickShowPastEvents():
     # Waits for page to render.
     time.sleep(5)
@@ -60,22 +61,26 @@ def clickShowPastEvents():
     showPastEvents.click()
 
 
-# Select Card
+# Scrape for all web links.
 
 
-def clickEventCard():
-    pass
+def scrapeLinks():
+    links = driver.find_elements(By.XPATH, "//a[@href]")
+
+    # We pop the last two links because those links are no events.
+    links.pop()
+    links.pop()
+
+    for link in links:
+        print(link.get_attribute("href"))
+    return links
 
 
-# Return to event page
-
-
-def returnToEventPage():
-    pass
+# Formats data into a JSON format.
 
 
 def compileData():
     pass
 
 
-intialize_browser()
+intialize_scraper()
