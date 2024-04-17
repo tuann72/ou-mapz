@@ -54,7 +54,7 @@ const MapPage = () => {
             </ul>
           )}
         </div>
-        <button className={styles.addMarkerButton}> hello</button>
+        <button className={styles.addMarkerButton} hidden="true"> hello</button> 
       </aside>
 
       <main className={styles.mapContainer}>

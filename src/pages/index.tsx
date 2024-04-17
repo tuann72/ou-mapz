@@ -134,6 +134,7 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
           <a href="#" className={styles.forgotPassword}>Forgot password?</a>
           <button type="submit" className={styles.loginButton}>Sign in</button>
           <button onClick={() => pageRouter.push('/map')}type="submit" className={styles.loginButton}>Continue as Guest</button>
+          <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button>
         </form>
       </div>
     </div>
