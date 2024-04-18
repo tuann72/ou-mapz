@@ -1,7 +1,9 @@
 // pages/map.js
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import MyMap from '../components/MyMap';
 import styles from '../styles/Home.module.css';
+import {auth} from '../../firebase.js';
+import {onAuthStateChanged} from 'firebase/auth';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +26,23 @@ const MapPage = () => {
     // Implement what happens when you click a suggestion
   };
 
+  // Tristen Pham
+  const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
+
+  useEffect(() => {
+    let markerButton = addMarkerButton.current;
+    auth.onAuthStateChanged( user => { // detects changes in authentication state of user (tracks when logging in/out)
+      if (user) { // user is signed in 
+        markerButton.hidden = false; // change marker to be visible
+        console.log("signed in");
+      }
+      else { // user is not signed in
+        markerButton.hidden = true; // keep marker invisible
+        console.log("not signed in");
+      }
+    })
+  }, [])
+  
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
@@ -43,7 +62,7 @@ const MapPage = () => {
             
               {suggestions.map((suggestion, index) => (
                 <li
-                  key={index}
+                  key={index} 
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={styles.suggestionItem}
                 >
@@ -53,8 +72,8 @@ const MapPage = () => {
               ))}
             </ul>
           )}
-        </div>
-        <button className={styles.addMarkerButton} hidden="true"> hello</button> 
+        </div> 
+        <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true}> hello</button> 
       </aside>
 
       <main className={styles.mapContainer}>

@@ -1,7 +1,7 @@
 // pages/index.tsx
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import {auth, db} from '../../firebase.js';
 import { create } from 'domain';
 import {collection, addDoc, setDoc, doc, getDoc} from 'firebase/firestore';
@@ -89,8 +89,8 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
     const user = userCredential.user;
 
     pageRouter.push('/map')
-    setTimeout(function(){}, 100);
-    window.location.reload();
+    //setTimeout(function(){}, 100); commented out by Tristen Pham
+    //window.location.reload(); commented out by Tristen Pham
     
     // ...
   })
@@ -100,6 +100,14 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
     const errorMessage = error.message;
   });
 }
+
+ /* - Tristen Pham
+signOut(auth).then(() => { // signs out user
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+*/
 
 
   return (
@@ -133,9 +141,9 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
           </div>
           <a href="#" className={styles.forgotPassword}>Forgot password?</a>
           <button type="submit" className={styles.loginButton}>Sign in</button>
-          <button onClick={() => pageRouter.push('/map')}type="submit" className={styles.loginButton}>Continue as Guest</button>
-          <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button>
         </form>
+        <button onClick={() => pageRouter.push('/map')}type="submit" className={styles.loginButton}>Continue as Guest</button>
+        <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button> 
       </div>
     </div>
   );
