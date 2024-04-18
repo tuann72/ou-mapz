@@ -5,11 +5,13 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 import time
+from datetime import datetime
 
 
 # Set up the options for the driver
 options = Options()
 options.add_experimental_option("detach", True)
+# options.add_argument("--headless")
 
 # Set up the driver
 driver = webdriver.Chrome(
@@ -24,26 +26,24 @@ eventLinks = []
 # Initialize driver
 def intialize_scraper():
     # Opens the URL in the browser.
-    driver.get(URL)
-    while True:
-        try:
-            time.sleep(3)
-            clickLoadMore()
-        except NoSuchElementException:
-            break
+
+    # driver.get(URL)
+    # while True:
+    #     try:
+    #         time.sleep(3)
+    #         clickLoadMore()
+    #     except NoSuchElementException:
+    #         break
 
     # Scrape links
-    time.sleep(3)
-    eventLinks = scrapeLinks()
+    # time.sleep(1)
+    # eventLinks = scrapeLinks()
 
     # Switch to new window
-    time.sleep(2)
-    driver.get(eventLinks[0])
-
-
-# Opens a new tab.
-def newTab():
-    driver.execute_script("window.open('');")
+    # time.sleep(2)
+    # driver.get(eventLinks[0].get_attribute("href"))
+    driver.get("https://ou.campuslabs.com/engage/event/10025893")
+    scrapeData()
 
 
 # Select LOAD MORE btn
@@ -60,7 +60,7 @@ def clickLoadMore():
 # Select Show Past Events.
 def clickShowPastEvents():
     # Waits for page to render.
-    time.sleep(5)
+    time.sleep(1)
     # Locates the Show Past Events button.
     showPastEvents = driver.find_element(
         By.XPATH,
@@ -71,25 +71,51 @@ def clickShowPastEvents():
 
 
 # Scrape for all web links.
-
-
 def scrapeLinks():
     links = driver.find_elements(By.XPATH, "//a[@href]")
 
     # We pop the last two links because those links are no events.
     links.pop()
     links.pop()
-
-    for link in links:
-        print(link.get_attribute("href"))
     return links
+
+
+# Scrape data
+def scrapeData():
+    title = driver.title
+    infoList = driver.find_elements(
+        By.XPATH, "//p[@style='margin: 2px 0px; white-space: normal;']"
+    )
+    startDate = infoList[0].text
+    endDate = infoList[1].text
+    room = infoList[2].text
+    address = infoList[3].text
+    desc = driver.find_element(By.XPATH, "//div[@class='DescriptionText']/child::*[1]")
+    desc = desc.text
+
+    formatData(title, startDate, endDate, room, address, desc)
 
 
 # Formats data into a JSON format.
 
 
-def compileData():
-    pass
+def formatData(title, startDay, endDay, room, address, desc):
+    jsonInfo = {}
+    # Appending the title
+    jsonInfo["title"] = title.split(" - ")[0]
+
+    # Format the start and end dates.
+
+    startDay = (((startDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
+    endDay = (((endDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
+
+    jsonInfo["startDate"] = startDay[0]
+    jsonInfo["endDate"] = endDay[0]
+
+    jsonInfo["startTime"] = startDay[1]
+    jsonInfo["endTime"] = endDay[1]
+
+    print(jsonInfo)
 
 
 intialize_scraper()
