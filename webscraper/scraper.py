@@ -22,29 +22,37 @@ driver = webdriver.Chrome(
 # URL of link to scrape
 URL = "https://ou.campuslabs.com/engage/events"
 eventLinks = []
+jsonEvents = []
 
 
 # Initialize driver
 def intialize_scraper():
     # Opens the URL in the browser.
 
-    # driver.get(URL)
-    # while True:
-    #     try:
-    #         time.sleep(3)
-    #         clickLoadMore()
-    #     except NoSuchElementException:
-    #         break
+    driver.get(URL)
+    while True:
+        try:
+            time.sleep(2)
+            clickLoadMore()
+        except NoSuchElementException:
+            break
 
     # Scrape links
-    # time.sleep(1)
-    # eventLinks = scrapeLinks()
+    time.sleep(1)
+    eventLinks = scrapeLinks()
+
+    # for link in eventLinks:
+    #     time.sleep(1)
+    #     driver.get(link)
+    #     jsonEvents.append(scrapeData(link))
+
+    pprint.pprint(jsonEvents)
 
     # Switch to new window
     # time.sleep(2)
     # driver.get(eventLinks[0].get_attribute("href"))
-    driver.get("https://ou.campuslabs.com/engage/event/10116895")
-    scrapeData("https://ou.campuslabs.com/engage/event/10116895")
+    # driver.get("https://ou.campuslabs.com/engage/event/10116895")
+    # scrapeData("https://ou.campuslabs.com/engage/event/10116895")
 
 
 # Select LOAD MORE btn
@@ -78,7 +86,12 @@ def scrapeLinks():
     # We pop the last two links because those links are no events.
     links.pop()
     links.pop()
-    return links
+
+    urls = []
+    for link in links:
+        urls.append(link.get_attribute("href"))
+
+    return urls
 
 
 # Scrape data
@@ -102,8 +115,6 @@ def scrapeData(link):
 
 
 # Formats data into a JSON format.
-
-
 def formatData(title, startDay, endDay, location, desc, link):
     jsonInfo = {}
     jsonInfo["title"] = ""
@@ -151,7 +162,7 @@ def formatData(title, startDay, endDay, location, desc, link):
     jsonInfo["link"] = link
 
     # jsonString = json.dumps(jsonInfo)
-    pprint.pprint(jsonInfo)
+    return jsonInfo
 
 
 intialize_scraper()
