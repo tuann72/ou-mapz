@@ -42,7 +42,7 @@ def intialize_scraper():
     # Switch to new window
     # time.sleep(2)
     # driver.get(eventLinks[0].get_attribute("href"))
-    driver.get("https://ou.campuslabs.com/engage/event/10025893")
+    driver.get("https://ou.campuslabs.com/engage/event/10092010")
     scrapeData()
 
 
@@ -88,18 +88,22 @@ def scrapeData():
     )
     startDate = infoList[0].text
     endDate = infoList[1].text
-    room = infoList[2].text
-    address = infoList[3].text
+
+    location = []
+
+    for i in range(2, len(infoList)):
+        location.append(infoList[i].text)
+
     desc = driver.find_element(By.XPATH, "//div[@class='DescriptionText']/child::*[1]")
     desc = desc.text
 
-    formatData(title, startDate, endDate, room, address, desc)
+    formatData(title, startDate, endDate, location, desc)
 
 
 # Formats data into a JSON format.
 
 
-def formatData(title, startDay, endDay, room, address, desc):
+def formatData(title, startDay, endDay, location, desc):
     jsonInfo = {}
     # Appending the title
     jsonInfo["title"] = title.split(" - ")[0]
@@ -116,6 +120,8 @@ def formatData(title, startDay, endDay, room, address, desc):
     jsonInfo["endTime"] = endDay[1]
 
     print(jsonInfo)
+    for i in range(len(location)):
+        print(str(i) + ". " + location[i])
 
 
 intialize_scraper()

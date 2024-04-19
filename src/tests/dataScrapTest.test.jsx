@@ -13,6 +13,7 @@ describe("Scrapping Past Events Test", () => {
             startTime: "5:00 PM",
             endTime: "7:30 PM",
             location: "Rehearsal Nook at Cross D Apartments",
+            address: "",
             link: "https://ou.campuslabs.com/engage/event/9847932"
         }));
     });
