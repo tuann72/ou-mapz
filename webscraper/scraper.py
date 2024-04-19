@@ -5,7 +5,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 import time
-from datetime import datetime
+import pprint
+import json
 
 
 # Set up the options for the driver
@@ -42,8 +43,8 @@ def intialize_scraper():
     # Switch to new window
     # time.sleep(2)
     # driver.get(eventLinks[0].get_attribute("href"))
-    driver.get("https://ou.campuslabs.com/engage/event/10092010")
-    scrapeData()
+    driver.get("https://ou.campuslabs.com/engage/event/10116895")
+    scrapeData("https://ou.campuslabs.com/engage/event/10116895")
 
 
 # Select LOAD MORE btn
@@ -81,7 +82,7 @@ def scrapeLinks():
 
 
 # Scrape data
-def scrapeData():
+def scrapeData(link):
     title = driver.title
     infoList = driver.find_elements(
         By.XPATH, "//p[@style='margin: 2px 0px; white-space: normal;']"
@@ -97,14 +98,24 @@ def scrapeData():
     desc = driver.find_element(By.XPATH, "//div[@class='DescriptionText']/child::*[1]")
     desc = desc.text
 
-    formatData(title, startDate, endDate, location, desc)
+    formatData(title, startDate, endDate, location, desc, link)
 
 
 # Formats data into a JSON format.
 
 
-def formatData(title, startDay, endDay, location, desc):
+def formatData(title, startDay, endDay, location, desc, link):
     jsonInfo = {}
+    jsonInfo["title"] = ""
+    jsonInfo["startDate"] = ""
+    jsonInfo["endDate"] = ""
+    jsonInfo["startTime"] = ""
+    jsonInfo["endTime"] = ""
+    jsonInfo["location"] = ""
+    jsonInfo["address"] = ""
+    jsonInfo["description"] = ""
+    jsonInfo["link"] = ""
+
     # Appending the title
     jsonInfo["title"] = title.split(" - ")[0]
 
@@ -113,15 +124,34 @@ def formatData(title, startDay, endDay, location, desc):
     startDay = (((startDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
     endDay = (((endDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
 
+    # Set start and end date.
+
     jsonInfo["startDate"] = startDay[0]
     jsonInfo["endDate"] = endDay[0]
+
+    # Set start and end time.
 
     jsonInfo["startTime"] = startDay[1]
     jsonInfo["endTime"] = endDay[1]
 
-    print(jsonInfo)
-    for i in range(len(location)):
-        print(str(i) + ". " + location[i])
+    # Sets location and address.
+
+    if len(location) == 2:
+        jsonInfo["location"] = location[0]
+        jsonInfo["address"] = location[1]
+    else:
+        jsonInfo["location"] = location[0]
+
+    # Set description.
+
+    jsonInfo["description"] = desc
+
+    # Set link.
+
+    jsonInfo["link"] = link
+
+    # jsonString = json.dumps(jsonInfo)
+    pprint.pprint(jsonInfo)
 
 
 intialize_scraper()
