@@ -6,6 +6,7 @@ import {auth, db} from '../../firebase.js';
 import { create } from 'domain';
 import {collection, addDoc, setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/authContext';
 
 /*
 This page was created by Mahnoor Saeed and Vishnu Patel
@@ -23,6 +24,16 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   // e is just a temporary variable (event handler) because this function is embedded in the 
   // submit form function in order to test it
+  const { currentUser } = useAuth() // gets the currentUser (logged in or out) from authContext
+  const { login } = useAuth() // gets login function from authContext
+  const { logout } = useAuth()
+
+  /*
+  if (currentUser) {
+    pageRouter.push('/map') // redirects user to map page if already logged in
+    // idea: instead of redirecting immediately, could prompt user to sign out or redirect
+  }
+  */
  
  
   async function addData(e: React.FormEvent<HTMLFormElement>){
@@ -83,31 +94,37 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   // prevent default form behavior
   e.preventDefault();
   // check authentication in firebase
-  signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+  login(email, password) // calls login function from authContext
+  .then(() => {
+    /* Commented out by Tristen Pham because it was underlined red
     // Signed in, so get user information/ credential
     const user = userCredential.user;
-
+    */
+    // reroute user to map page upon successful login
     pageRouter.push('/map')
-    //setTimeout(function(){}, 100); commented out by Tristen Pham
-    //window.location.reload(); commented out by Tristen Pham
+    //setTimeout(function(){}, 100); 
+    //window.location.reload();
     
     // ...
   })
-  .catch((error) => {
+  .catch((error: Error) => {
+    /* Commented out by Tristen Pham because error needed type Error but Error type does not have 'code' property
     // print error message from firebase
-    const errorCode = error.code;
+    const errorCode = error.code; Error does not have 'code' property
+    */
     const errorMessage = error.message;
   });
 }
 
- /* - Tristen Pham
-signOut(auth).then(() => { // signs out user
-  // Sign-out successful.
-}).catch((error) => {
-  // An error happened.
-});
-*/
+function handleGuest() {
+  logout()
+  .then(() => { // signs out user
+    // Sign-out successful, reroutes user to map page
+    pageRouter.push('/map')
+  }).catch((error: Error) => {
+    // An error happened.
+  });
+}
 
 
   return (
@@ -141,9 +158,9 @@ signOut(auth).then(() => { // signs out user
           </div>
           <a href="#" className={styles.forgotPassword}>Forgot password?</a>
           <button type="submit" className={styles.loginButton}>Sign in</button>
+          <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button> 
         </form>
-        <button onClick={() => pageRouter.push('/map')}type="submit" className={styles.loginButton}>Continue as Guest</button>
-        <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button> 
+        <button onClick={() => handleGuest()}type="submit" className={styles.loginButton}>Continue as Guest</button>
       </div>
     </div>
   );
