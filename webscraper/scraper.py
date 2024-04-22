@@ -48,7 +48,7 @@ def intialize_scraper():
     # driver.get(eventLinks[0])
     # scrapeData(eventLinks[0])
 
-    pprint.pprint(jsonEvents)
+    return jsonEvents
 
 
 # Select LOAD MORE btn
@@ -152,6 +152,3 @@ def formatData(title, info, desc, link):
 
     # jsonString = json.dumps(jsonInfo)
     return jsonInfo
-
-
-intialize_scraper()
