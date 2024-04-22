@@ -41,10 +41,12 @@ def intialize_scraper():
     time.sleep(1)
     eventLinks = scrapeLinks()
 
-    # for link in eventLinks:
-    #     time.sleep(1)
-    #     driver.get(link)
-    #     jsonEvents.append(scrapeData(link))
+    for link in eventLinks:
+        time.sleep(1)
+        driver.get(link)
+        jsonEvents.append(scrapeData(link))
+
+    # Create ERROR CHECKS
 
     pprint.pprint(jsonEvents)
 
@@ -100,16 +102,30 @@ def scrapeData(link):
     infoList = driver.find_elements(
         By.XPATH, "//p[@style='margin: 2px 0px; white-space: normal;']"
     )
-    startDate = infoList[0].text
-    endDate = infoList[1].text
+    try:
+        startDate = infoList[0].text
+    except:
+        startDate = ""
+
+    try:
+        endDate = infoList[1].text
+    except:
+        endDate = ""
 
     location = []
 
     for i in range(2, len(infoList)):
-        location.append(infoList[i].text)
+        try:
+            location.append(infoList[i].text)
+        except:
+            location.append("")
 
     desc = driver.find_element(By.XPATH, "//div[@class='DescriptionText']/child::*[1]")
-    desc = desc.text
+
+    try:
+        desc = desc.text
+    except:
+        desc = ""
 
     formatData(title, startDate, endDate, location, desc, link)
 
@@ -132,8 +148,9 @@ def formatData(title, startDay, endDay, location, desc, link):
 
     # Format the start and end dates.
 
-    startDay = (((startDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
-    endDay = (((endDay.split(", "))[1]).split(" CDT")[0]).split(" at ")
+    startDay = startDay.split(", ")
+
+    endDay = endDay.split(", ")
 
     # Set start and end date.
 
