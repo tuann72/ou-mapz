@@ -30,31 +30,27 @@ def intialize_scraper():
     # Opens the URL in the browser.
 
     driver.get(URL)
-    while True:
-        try:
-            time.sleep(2)
-            clickLoadMore()
-        except NoSuchElementException:
-            break
+
+    # Tries to load page if possible.
+    try:
+        clickLoadMore()
+    except NoSuchElementException:
+        pass
 
     # Scrape links
-    time.sleep(1)
     eventLinks = scrapeLinks()
 
     for link in eventLinks:
-        time.sleep(1)
         driver.get(link)
-        jsonEvents.append(scrapeData(link))
+        try:
+            jsonEvents.append(scrapeData(link))
+        except:
+            print("Error finding " + str(link))
 
-    # Create ERROR CHECKS
+    # driver.get(eventLinks[0])
+    # scrapeData(eventLinks[0])
 
     pprint.pprint(jsonEvents)
-
-    # Switch to new window
-    # time.sleep(2)
-    # driver.get(eventLinks[0].get_attribute("href"))
-    # driver.get("https://ou.campuslabs.com/engage/event/10116895")
-    # scrapeData("https://ou.campuslabs.com/engage/event/10116895")
 
 
 # Select LOAD MORE btn
@@ -70,8 +66,6 @@ def clickLoadMore():
 
 # Select Show Past Events.
 def clickShowPastEvents():
-    # Waits for page to render.
-    time.sleep(1)
     # Locates the Show Past Events button.
     showPastEvents = driver.find_element(
         By.XPATH,
@@ -102,75 +96,55 @@ def scrapeData(link):
     infoList = driver.find_elements(
         By.XPATH, "//p[@style='margin: 2px 0px; white-space: normal;']"
     )
-    try:
-        startDate = infoList[0].text
-    except:
-        startDate = ""
 
-    try:
-        endDate = infoList[1].text
-    except:
-        endDate = ""
+    # print(title)
+    # print(infoList[0].text)
+    # print(infoList[1].text)
+    # print(infoList[2].text)
 
-    location = []
+    desc = driver.find_element(
+        By.XPATH, "//div[@class='DescriptionText']/child::*[1]"
+    ).text
 
-    for i in range(2, len(infoList)):
-        try:
-            location.append(infoList[i].text)
-        except:
-            location.append("")
+    # print(desc.text)
 
-    desc = driver.find_element(By.XPATH, "//div[@class='DescriptionText']/child::*[1]")
-
-    try:
-        desc = desc.text
-    except:
-        desc = ""
-
-    formatData(title, startDate, endDate, location, desc, link)
+    return formatData(title, infoList, desc, link)
 
 
 # Formats data into a JSON format.
-def formatData(title, startDay, endDay, location, desc, link):
-    jsonInfo = {}
-    jsonInfo["title"] = ""
-    jsonInfo["startDate"] = ""
-    jsonInfo["endDate"] = ""
-    jsonInfo["startTime"] = ""
-    jsonInfo["endTime"] = ""
-    jsonInfo["location"] = ""
-    jsonInfo["address"] = ""
-    jsonInfo["description"] = ""
-    jsonInfo["link"] = ""
+def formatData(title, info, desc, link):
+    jsonInfo = {
+        "title": "",
+        "startDate": "",
+        "endDate": "",
+        "location": "",
+        "address": "",
+        "description": "",
+        "link": "",
+    }
 
     # Appending the title
     jsonInfo["title"] = title.split(" - ")[0]
 
-    # Format the start and end dates.
+    # Check what info contains. Check to see its size.
 
-    startDay = startDay.split(", ")
+    try:
+        # If info includes address.
+        if len(info) == 3:
+            jsonInfo["startDate"] = info[0].text
+            jsonInfo["endDate"] = info[1].text
+            jsonInfo["location"] = info[2].text
 
-    endDay = endDay.split(", ")
+        # If info does not have address.
+        elif len(info) == 4:
+            jsonInfo["startDate"] = info[0].text
+            jsonInfo["endDate"] = info[1].text
+            jsonInfo["location"] = info[2].text
+            jsonInfo["address"] = info[3].text
+    except:
+        print("Error for " + link)
 
-    # Set start and end date.
-
-    jsonInfo["startDate"] = startDay[0]
-    jsonInfo["endDate"] = endDay[0]
-
-    # Set start and end time.
-
-    jsonInfo["startTime"] = startDay[1]
-    jsonInfo["endTime"] = endDay[1]
-
-    # Sets location and address.
-
-    if len(location) == 2:
-        jsonInfo["location"] = location[0]
-        jsonInfo["address"] = location[1]
-    else:
-        jsonInfo["location"] = location[0]
-
-    # Set description.
+    # Set description
 
     jsonInfo["description"] = desc
 
