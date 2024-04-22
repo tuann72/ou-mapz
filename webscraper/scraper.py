@@ -4,9 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
-import time
 import pprint
-import json
 
 
 # Set up the options for the driver
@@ -131,14 +129,14 @@ def formatData(title, info, desc, link):
     try:
         # If info includes address.
         if len(info) == 3:
-            jsonInfo["startDate"] = info[0].text
-            jsonInfo["endDate"] = info[1].text
+            jsonInfo["startDate"] = ((info[0].text).split(", ")[1])[:-3]
+            jsonInfo["endDate"] = info[1].text.split(", ")[1]
             jsonInfo["location"] = info[2].text
 
         # If info does not have address.
         elif len(info) == 4:
-            jsonInfo["startDate"] = info[0].text
-            jsonInfo["endDate"] = info[1].text
+            jsonInfo["startDate"] = ((info[0].text).split(", ")[1])[:-3]
+            jsonInfo["endDate"] = info[1].text.split(", ")[1]
             jsonInfo["location"] = info[2].text
             jsonInfo["address"] = info[3].text
     except:
