@@ -8,10 +8,8 @@ describe("Scrapping Past Events Test", () => {
         // Compares data to correct answers.
         expect(data).toEqual(JSON.stringify({
             title: "Latin Dance Club Meeting",
-            startDate: "04-08-2024",
-            endDate: "04-08-2024",
-            startTime: "5:00 PM",
-            endTime: "7:30 PM",
+            startDate: "April 22 2024 at 6:30 PM CDT",
+            endDate: "April 22 2024 at 7:30 PM",
             location: "Rehearsal Nook at Cross D Apartments",
             address: "",
             description: "",
