@@ -15,6 +15,7 @@ function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
     const { signup } = useAuth() // gets signup function from authContext to use in the register form
     const pageRouter = useRouter()
 

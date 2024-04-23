@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
+import time
 
 
 # Set up the options for the driver
@@ -24,13 +25,13 @@ def intialize_browser():
     # Opens the URL in the browser.
     driver.get(URL)
 
-    clickShowPastEvents()
+    clickLoadMore()
 
 
 # Select LOAD MORE btn
 def clickLoadMore():
     # Waits for page to render.
-    WebDriverWait(driver, 10)
+    time.sleep(5)
     # Locates the Load More button.
     loadMoreBtn = driver.find_element(
         By.XPATH,
@@ -43,7 +44,7 @@ def clickLoadMore():
 # Select Show Past Events
 def clickShowPastEvents():
     # Waits for page to render.
-    WebDriverWait(driver, 10)
+    time.sleep(5)
     # Locates the Show Past Events button.
     showPastEvents = driver.find_element(
         By.XPATH,
