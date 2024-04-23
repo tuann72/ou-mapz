@@ -9,8 +9,8 @@ import pprint
 
 # Set up the options for the driver
 options = Options()
-options.add_experimental_option("detach", True)
-# options.add_argument("--headless")
+# options.add_experimental_option("detach", True)
+options.add_argument("--headless")
 
 # Set up the driver
 driver = webdriver.Chrome(
@@ -132,7 +132,6 @@ def formatData(title, info, desc, link):
             jsonInfo["startDate"] = ((info[0].text).split(", ")[1])[:-3]
             jsonInfo["endDate"] = info[1].text.split(", ")[1]
             jsonInfo["location"] = info[2].text
-
         # If info does not have address.
         elif len(info) == 4:
             jsonInfo["startDate"] = ((info[0].text).split(", ")[1])[:-3]
@@ -152,3 +151,6 @@ def formatData(title, info, desc, link):
 
     # jsonString = json.dumps(jsonInfo)
     return jsonInfo
+
+
+pprint.pprint(intialize_scraper())
