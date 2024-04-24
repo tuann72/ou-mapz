@@ -1,12 +1,16 @@
 // pages/map.js
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import MyMap from '../components/MyMap';
 import styles from '../styles/Home.module.css';
+import {auth} from '../../firebase.js';
+import {signOut} from 'firebase/auth';
+import { useAuth } from '../contexts/authContext'
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState(['Organizations', 'University of Oklahoma', 'Activities nearby']);
+  const { currentUser } = useAuth() // gets currentUser from authContext
 
   // Function to handle search input changes
   const handleSearch = (e) => {
@@ -24,6 +28,32 @@ const MapPage = () => {
     // Implement what happens when you click a suggestion
   };
 
+  // Tristen Pham
+  const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
+  useEffect(() => {
+    let markerButton = addMarkerButton.current;
+   if (currentUser) {
+    markerButton.hidden = false; // shows addMarkerButton if user is logged in
+   }
+   else {
+    markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
+   }
+  }, [currentUser]) /* currentUser is a dependency (hiding addMarkerButton depends on whether user is logged in) 
+  so it needs to be included in the dependency array
+  */
+
+  // Add addMarker functionality here, currently contains code to sign user out
+  function handleClick() {
+    /*
+    signOut(auth).then(() => { // signs out user
+      // Sign-out successful.
+      console.log("logged out")
+    }).catch((error) => {
+      // An error happened.
+    });
+    */
+  }
+  
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
@@ -43,7 +73,7 @@ const MapPage = () => {
             
               {suggestions.map((suggestion, index) => (
                 <li
-                  key={index}
+                  key={index} 
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={styles.suggestionItem}
                 >
@@ -53,8 +83,8 @@ const MapPage = () => {
               ))}
             </ul>
           )}
-        </div>
-        <button className={styles.addMarkerButton}> hello</button>
+        </div> 
+        <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true} onClick={() => handleClick()}> hello</button> 
       </aside>
 
       <main className={styles.mapContainer}>
