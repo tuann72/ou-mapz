@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import {auth} from '../../firebase.js';
 import {signOut} from 'firebase/auth';
 import { useAuth } from '../contexts/authContext'
+import { Container } from 'postcss';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -84,7 +85,10 @@ const MapPage = () => {
             </ul>
           )}
         </div> 
-        <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true} onClick={() => handleClick()}> hello</button> 
+        <div className={styles.buttoncontainer}>
+          <button className={styles.addMarkerButton} > Sign</button>
+          <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true} onClick={() => handleClick()}> hello</button> 
+        </div>
       </aside>
 
       <main className={styles.mapContainer}> 
