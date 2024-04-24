@@ -54,7 +54,7 @@ const MapPage = () => {
     });
     */
   }
-  // Add the addmarker button and the signin/signout button
+  // Xin, Add the addmarker button and the signin/signout button
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
@@ -85,8 +85,8 @@ const MapPage = () => {
             </ul>
           )}
         </div>
-        <div className='flex h-full items-end justify-center'>
-          <div className="grid grid-cols-2 gap-4 inset-y-0">
+        <div className='flex h-full items-end justify-center bg-rose-600'>
+          <div className="flex w-full justify-between">
             <button id="SigningButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" > Sign</button>
             <button ref={addMarkerButton} id="addMarkerButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
           </div>
