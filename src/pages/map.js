@@ -64,7 +64,7 @@ const MapPage = () => {
             value={searchTerm}
             onChange={handleSearch}
             onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay 1
             className={styles.searchInput}
           />
           {showSuggestions && (
@@ -87,7 +87,7 @@ const MapPage = () => {
         <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true} onClick={() => handleClick()}> hello</button> 
       </aside>
 
-      <main className={styles.mapContainer}>
+      <main className={styles.mapContainer}> 
         <h1 className={styles.title}>OU Mapz</h1>
         <MyMap />
         
