@@ -151,6 +151,3 @@ def formatData(title, info, desc, link):
 
     # jsonString = json.dumps(jsonInfo)
     return jsonInfo
-
-
-pprint.pprint(intialize_scraper())

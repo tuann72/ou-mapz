@@ -5,14 +5,17 @@ from scraper import intialize_scraper
 
 
 def main():
-    cred = credentials.Certificate("")
-    firebase_admin.initialize_app(cred)
+    cred = credentials.Certificate(
+        "/Users/tuannguyen/Desktop/ou-mapz/ou-mapz-markers.json"
+    )
+    app = firebase_admin.initialize_app(cred)
 
     db = firestore.client()
 
     data = intialize_scraper()
 
-    db.collection("scraped_data").add(data)
+    for i in data:
+        db.collection("Engage Data").add(i)
 
 
 if __name__ == "__main__":
