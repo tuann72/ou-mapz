@@ -102,12 +102,6 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
     */
     // reroute user to map page upon successful login
     pageRouter.push('/map')
-    //setTimeout(function(){}, 100); 
-    //window.location.reload();
-    setTimeout(function(){
-      location.reload();
-    }, 100); // Delay 100 ms before refreshing
-    
     // ...
   })
   .catch((error: Error) => {
@@ -124,9 +118,6 @@ function handleGuest() {
   .then(() => { // signs out user
     // Sign-out successful, reroutes user to map page
     pageRouter.push('/map')
-    setTimeout(function(){
-      location.reload();
-    }, 100); // Delay 100 ms before refreshing
   }).catch((error: Error) => {
     // An error happened.
   });

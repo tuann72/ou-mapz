@@ -12,6 +12,7 @@ const MapPage = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState(['Organizations', 'University of Oklahoma', 'Activities nearby']);
   const { currentUser } = useAuth() // gets currentUser from authContext
+  const [logButtonText, setLogButtonText] = useState('Sign In');
 
   // Function to handle search input changes
   const handleSearch = (e) => {
@@ -31,10 +32,12 @@ const MapPage = () => {
 
   // Tristen Pham
   const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
+  const logButton = useRef();
   useEffect(() => {
     let markerButton = addMarkerButton.current;
    if (currentUser) {
     markerButton.hidden = false; // shows addMarkerButton if user is logged in
+    setLogButtonText("Sign Out")
    }
    else {
     markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
@@ -85,10 +88,10 @@ const MapPage = () => {
             </ul>
           )}
         </div>
-        <div className='flex h-full items-end justify-center bg-rose-600'>
+        <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
-            <button id="SigningButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" > Sign</button>
-            <button ref={addMarkerButton} id="addMarkerButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
+            <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >{logButtonText}</button>
+            <button ref={addMarkerButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
           </div>
         </div>
       </aside>
