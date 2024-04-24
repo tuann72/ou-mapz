@@ -9,7 +9,6 @@
     background: #f232322c; /* Set your desired background color */
     padding-top: 20px; /* Adjust this value to move the title closer to the top */
   }
-  
   .title {
     font-size: 2rem; /* Set the size of the title */
     color: #ffffff; /* Set the color of the title */
@@ -204,4 +203,4 @@
   bottom: 0;
   margin-bottom: 10px;
 
-}
+} 

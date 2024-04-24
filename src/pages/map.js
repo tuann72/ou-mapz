@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import {auth} from '../../firebase.js';
 import {signOut} from 'firebase/auth';
 import { useAuth } from '../contexts/authContext'
+import { Container } from 'postcss';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -53,7 +54,7 @@ const MapPage = () => {
     });
     */
   }
-  
+  // Add the addmarker button and the signin/signout button
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
@@ -64,7 +65,7 @@ const MapPage = () => {
             value={searchTerm}
             onChange={handleSearch}
             onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay 1
             className={styles.searchInput}
           />
           {showSuggestions && (
@@ -83,11 +84,16 @@ const MapPage = () => {
               ))}
             </ul>
           )}
-        </div> 
-        <button ref={addMarkerButton} id="addMarkerButton" className={styles.addMarkerButton} hidden={true} onClick={() => handleClick()}> hello</button> 
+        </div>
+        <div className='flex h-full items-end justify-center'>
+          <div className="grid grid-cols-2 gap-4 inset-y-0">
+            <button id="SigningButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" > Sign</button>
+            <button ref={addMarkerButton} id="addMarkerButton" className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
+          </div>
+        </div>
       </aside>
 
-      <main className={styles.mapContainer}>
+      <main className={styles.mapContainer}> 
         <h1 className={styles.title}>OU Mapz</h1>
         <MyMap />
         
