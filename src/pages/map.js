@@ -6,6 +6,7 @@ import {auth} from '../../firebase.js';
 import {signOut} from 'firebase/auth';
 import { useAuth } from '../contexts/authContext'
 import { Container } from 'postcss';
+import { useRouter } from 'next/router';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +14,7 @@ const MapPage = () => {
   const [suggestions, setSuggestions] = useState(['Organizations', 'University of Oklahoma', 'Activities nearby']);
   const { currentUser } = useAuth() // gets currentUser from authContext
   const [logButtonText, setLogButtonText] = useState('Sign In');
+  const pageRouter = useRouter()
 
   // Function to handle search input changes
   const handleSearch = (e) => {
@@ -41,10 +43,25 @@ const MapPage = () => {
    }
    else {
     markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
+    setLogButtonText("Sign In")
    }
   }, [currentUser]) /* currentUser is a dependency (hiding addMarkerButton depends on whether user is logged in) 
   so it needs to be included in the dependency array
   */
+
+  function handleUserAuth() {
+    if (currentUser) {
+      signOut(auth).then(() => { // signs out user
+        // Sign-out successful.
+        console.log("logged out")
+      }).catch((error) => {
+        // An error happened.
+      });
+    }
+    else {
+      pageRouter.push("/login")
+    }
+  }
 
   // Add addMarker functionality here, currently contains code to sign user out
   function handleClick() {
@@ -90,7 +107,7 @@ const MapPage = () => {
         </div>
         <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
-            <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >{logButtonText}</button>
+            <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
             <button ref={addMarkerButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
           </div>
         </div>
