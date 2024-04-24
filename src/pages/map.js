@@ -54,7 +54,7 @@ const MapPage = () => {
     });
     */
   }
-  
+  // Add the addmarker button and the signin/signout button
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>

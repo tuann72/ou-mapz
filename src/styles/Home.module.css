@@ -204,8 +204,3 @@
   margin-bottom: 10px;
 
 } 
-.buttoncontainer {
-  display: flex; /* Change the display type*/
-  flex-direction: row;
-  justify-content: space-between;
-} 
