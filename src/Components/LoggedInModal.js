@@ -19,8 +19,8 @@ const customStyles = {
 
 const LoggedInPopup = ()=> {
   let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
   const { currentUser } = useAuth()
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
     setIsOpen(true);
@@ -35,6 +35,12 @@ const LoggedInPopup = ()=> {
     setIsOpen(false);
   }
 
+  useEffect(() => {
+    if (currentUser) {
+        openModal()
+      }
+  }, [currentUser])
+
   return (
     <div>
         <button onClick={openModal}>Open Modal</button>
@@ -46,9 +52,6 @@ const LoggedInPopup = ()=> {
         contentLabel="Example Modal"
         id ="modal"
       >
-      <label>Event Name:
-        <input type="text" name="name"/>
-      </label>
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
         <button onClick={closeModal}>close</button>
       </Modal>

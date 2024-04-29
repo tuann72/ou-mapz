@@ -97,10 +97,6 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   // check authentication in firebase
   login(email, password) // calls login function from authContext
   .then(() => {
-    /* Commented out by Tristen Pham because it was underlined red
-    // Signed in, so get user information/ credential
-    const user = userCredential.user;
-    */
     // reroute user to map page upon successful login
     pageRouter.push('/map')
     // ...
