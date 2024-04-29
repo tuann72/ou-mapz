@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/authContext';
+import { useRouter } from 'next/router';
 
 const customStyles = {
   content: {
@@ -12,6 +13,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: 600,
+    height: 300,
   },
 };
 
@@ -20,6 +22,8 @@ const customStyles = {
 const LoggedInPopup = ()=> {
   let subtitle;
   const { currentUser } = useAuth()
+  const { logout } = useAuth()
+  const pageRouter = useRouter()
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -33,6 +37,20 @@ const LoggedInPopup = ()=> {
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function handleSignOut() {
+    logout()
+    .then(() => { // signs out user
+        // Sign-out successful
+        closeModal()
+    }).catch((error) => {
+        // An error happened.
+    });
+  }
+
+  function handleMapRedirect() {
+    pageRouter.push('/map')
   }
 
   useEffect(() => {
@@ -52,8 +70,14 @@ const LoggedInPopup = ()=> {
         contentLabel="Example Modal"
         id ="modal"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}></h2>
-        <button onClick={closeModal}>close</button>
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Welcome Back!</h2>
+        <p>Seems like you are already signed in. Would you like to sign out or continue to the map?</p>
+        <div className='flex h-full items-end'>
+          <div className="flex w-full justify-between">
+            <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleSignOut}>Sign Out</button>
+            <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleMapRedirect}>Continue to Map</button>
+          </div>
+        </div>
       </Modal>
     </div>
   );
