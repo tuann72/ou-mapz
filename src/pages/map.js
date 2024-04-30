@@ -5,8 +5,12 @@ import styles from '../styles/Home.module.css';
 import {auth} from '../../firebase.js';
 import {signOut} from 'firebase/auth';
 import { useAuth } from '../contexts/authContext'
+
 import { Container } from 'postcss';
 import { useRouter } from 'next/router';
+
+import Popup from 'reactjs-popup';
+import AddMarkerButton from '../Components/AddMarkerButton.js';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,6 +19,9 @@ const MapPage = () => {
   const { currentUser } = useAuth() // gets currentUser from authContext
   const [logButtonText, setLogButtonText] = useState('Sign In');
   const pageRouter = useRouter()
+
+  // const { currentUser } = useAuth() // gets currentUser from authContext
+
 
   // Function to handle search input changes
   const handleSearch = (e) => {
@@ -33,21 +40,32 @@ const MapPage = () => {
   };
 
   // Tristen Pham
+
   const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
   const logButton = useRef();
+
+  /*
+  const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
   useEffect(() => {
     let markerButton = addMarkerButton.current;
    if (currentUser) {
     markerButton.hidden = false; // shows addMarkerButton if user is logged in
+
     setLogButtonText("Sign Out")
    }
    else {
     markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
     setLogButtonText("Sign In")
+
+   }
+   else {
+    markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
+
    }
   }, [currentUser]) /* currentUser is a dependency (hiding addMarkerButton depends on whether user is logged in) 
   so it needs to be included in the dependency array
   */
+
 
   function handleUserAuth() {
     if (currentUser) {
@@ -63,6 +81,7 @@ const MapPage = () => {
     }
   }
 
+
   // Add addMarker functionality here, currently contains code to sign user out
   function handleClick() {
     /*
@@ -74,7 +93,10 @@ const MapPage = () => {
     });
     */
   }
+
   // Xin, Add the addmarker button and the signin/signout button
+
+  
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
@@ -86,24 +108,24 @@ const MapPage = () => {
             onChange={handleSearch}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay 1
-            className={styles.searchInput}
-          />
+            className={styles.searchInput} />
           {showSuggestions && (
-            
+
             <ul className={styles.suggestions}>
-            
+
               {suggestions.map((suggestion, index) => (
                 <li
-                  key={index} 
+                  key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={styles.suggestionItem}
                 >
                   {suggestion}
                 </li>
-                
+
               ))}
             </ul>
           )}
+
         </div>
         <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
@@ -111,6 +133,9 @@ const MapPage = () => {
             <button ref={addMarkerButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
           </div>
         </div>
+
+      <AddMarkerButton />
+
       </aside>
 
       <main className={styles.mapContainer}> 
@@ -123,7 +148,5 @@ const MapPage = () => {
 };
 
 export default MapPage;
-
-
 
 
