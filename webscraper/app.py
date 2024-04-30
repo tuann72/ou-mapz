@@ -9,11 +9,9 @@ from scraper import intialize_scraper
 flaskApp = Flask(__name__)
 
 
-@flaskApp.route("/")
+@flaskApp.route("/", methods=["GET"])
 def main():
-    cred = credentials.Certificate(
-        "/Users/tuannguyen/Desktop/ou-mapz/ou-mapz-markers.json"
-    )
+    cred = credentials.Certificate("webscraper/ou-mapz-markers.json")
     app = firebase_admin.initialize_app(cred)
 
     db = firestore.client()
@@ -23,8 +21,10 @@ def main():
     for i in data:
         db.collection("Engage Data").add(i)
 
+    # print(data)
+
     return "data uploaded"
 
 
 if __name__ == "__main__":
-    flaskApp.run(debug=True)
+    flaskApp.run(port=8000, debug=True)
