@@ -7,6 +7,38 @@ import {signOut} from 'firebase/auth';
 import { useAuth } from '../contexts/authContext'
 import { Container } from 'postcss';
 import { useRouter } from 'next/router';
+import { db } from '../../firebase.js';
+import { collection, getDocs } from "firebase/firestore";
+import { Interface } from 'readline';
+
+class event {
+  constructor(location, startDate, endDate, address, link, description, title) {
+    this.location = location;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.address = address;
+    this.link = link;
+    this.description = description;
+    this.title = title;
+  }
+
+  toString() {
+    return this.location + ', ' + this.startDate + ', ' + this.endDate + ', ' + this.address + ', ' + this.link + ', ' + this.description + ', ' + this.title;
+  }
+}
+
+const events = [];
+
+const querySnapshot = await getDocs(collection(db, "Engage Data"));
+querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  // console.log(doc.id, " => ", doc.data());
+  let data = new event(doc.data().location, doc.data().startDate, doc.data().endDate, doc.data().address, doc.data().link, doc.data().description, doc.data().title);
+  events.push(data);
+  console.log("Hello");
+  console.log(events.toString());
+});
+
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
