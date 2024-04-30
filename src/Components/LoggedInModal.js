@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/authContext';
 import { useRouter } from 'next/router';
 
@@ -25,6 +25,9 @@ const LoggedInPopup = ()=> {
   const { logout } = useAuth()
   const pageRouter = useRouter()
   const [modalIsOpen, setIsOpen] = useState(false);
+  const heading = useRef();
+  const message = useRef();
+  const window = useRef();
 
   function openModal() {
     setIsOpen(true);
@@ -32,7 +35,15 @@ const LoggedInPopup = ()=> {
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    heading.current.style.color = '#FFFFFF';
+    heading.current.style.fontSize = '48px';
+    heading.current.style.backgroundColor = '#841617'; // hex value of red used by OU btw
+    heading.current.style.textAlign = 'center';
+    message.current.style.color = '#BCDCEB';
+    message.current.style.backgroundColor = '#841617';
+    message.current.style.fontSize = '24px';
+    message.current.style.textAlign = 'center';
+    window.current.style.backgroundColor = 'black';
   }
 
   function closeModal() {
@@ -66,16 +77,16 @@ const LoggedInPopup = ()=> {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Already Logged In"
         id ="modal"
+        shouldCloseOnOverlayClick={false}
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Welcome Back!</h2>
-        <p>Seems like you are already signed in. Would you like to sign out or continue to the map?</p>
-        <div className='flex h-full items-end'>
-          <div className="flex w-full justify-between">
-            <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleSignOut}>Sign Out</button>
-            <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleMapRedirect}>Continue to Map</button>
-          </div>
+        <h2 ref={heading}>Welcome Back!</h2>
+        <p ref={message}>Seems like you are already signed in. Would you like to sign out or continue to the map?</p>
+        <div ref={window} className='flex w-full h-full items-end justify-between'>
+          <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleSignOut}>Sign Out</button>
+          <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={closeModal}>Close</button>
+          <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={handleMapRedirect}>Continue to Map</button>
         </div>
       </Modal>
     </div>
