@@ -7,6 +7,7 @@ import { create } from 'domain';
 import {collection, addDoc, setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/authContext';
+import LoggedInModal from '../Components/LoggedInModal'
 
 /*
 This page was created by Mahnoor Saeed and Vishnu Patel
@@ -96,10 +97,6 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   // check authentication in firebase
   login(email, password) // calls login function from authContext
   .then(() => {
-    /* Commented out by Tristen Pham because it was underlined red
-    // Signed in, so get user information/ credential
-    const user = userCredential.user;
-    */
     // reroute user to map page upon successful login
     pageRouter.push('/map')
     // ...
@@ -159,6 +156,7 @@ function handleGuest() {
         </form>
         <button onClick={() => handleGuest()}type="submit" className={styles.loginButton}>Continue as Guest</button>
       </div>
+      <LoggedInModal/>
     </div>
   );
   
