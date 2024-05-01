@@ -53,7 +53,7 @@ const MyMap = () => {
                   icon: customIcons[1],
                 })
                 const contentString = `<div style = "color: black;">
-                  <h3>${title}</h3>
+                  <h3><strong>${title}</strong></h3>
                   <p><strong>Description:</strong> ${description}</p>
                   <p><strong>Address:</strong> ${address}</p>
                 </div>`;
