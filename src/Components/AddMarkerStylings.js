@@ -62,15 +62,13 @@ const AddMarkerStyling = () => {
   function handleSubmit() {
     // Here you can submit your form data or perform any other action
     const lat = latitude.get(location);
-  const lng = longitude.get(location);
-  const eventTitle = eventName;
-  const eventDescription = description;
-  const eventDateTime = dateTime;
+    const lng = longitude.get(location);
+    const eventTitle = eventName;
+    const eventDescription = description;
+    const eventDateTime = dateTime;
 
   // Call the global function to add a marker with additional event details
   window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime);
-
-  closeModal();
 
   closeModal();
   }
