@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {getEventsFromDatabase} from '../Components/Events.js'
 
-
-getEventsFromDatabase()
-  .then(events => {
-    // Iterate over the events array
-    events.forEach(event => {
-      // Call the getTitle method on each event object
-      const title = event.getAddress();
-      console.log(`Title: ${title}`);
-    });
-  })
-  .catch(error => {
-    console.error(error);
-  });
 const MyMap = () => {
+  const mapRef = useRef(null); // Ref to store the map instance
+
   useEffect(() => {
     // Make sure the initMap function is defined globally before loading the script
     window.initMap = function() {
@@ -23,6 +12,8 @@ const MyMap = () => {
         zoom: 13,
         mapId: "dc3746cfb50352a8",
       });
+
+      mapRef.current = map; // Store map instance in ref
 
       const customIcons = [
         {
@@ -51,6 +42,49 @@ const MyMap = () => {
         },
         // Add more markers as needed
       ];
+
+      // Webscraped markers
+      getEventsFromDatabase()
+        .then(events => {
+          // Iterate over the events array
+          events.forEach(event => {
+            // Call the getTitle method on each event object
+            const address = event.getAddress();
+            const title = event.getTitle();
+            const description = event.getDescription()
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address }, (results, status) => {
+              if (status === 'OK') {
+                const latitude = results[0].geometry.location.lat();
+                const longitude = results[0].geometry.location.lng();
+
+                const pos = {lat: latitude, lng: longitude}
+                const marker = new google.maps.Marker({
+                  position: pos,
+                  map: map,
+                  title: title,
+                })
+                const contentString = `<div style = "color: black;">
+                  <h3>${title}</h3>
+                  <p><strong>Description:</strong> ${description}</p>
+                  <p><strong>Address:</strong> ${address}</p>
+                </div>`;
+
+                const infoWindow = new google.maps.InfoWindow({
+                  content: contentString
+                });
+
+                marker.addListener('click', () => {
+                  infoWindow.open(mapRef.current, marker);
+                });
+
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
 
       // Loop through markersData to create markers
       markersData.forEach((markerData) => {
