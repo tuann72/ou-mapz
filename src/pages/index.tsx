@@ -1,5 +1,5 @@
 // pages/index.tsx
-import React, { useState } from 'react';
+import React, { useState, autoplay, loop, muted, playsInline } from 'react';
 import styles from '../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/authContext';
@@ -58,7 +58,11 @@ function handleGuest() {
 
 
   return (
-    
+    <div className={styles.videoContainer}>
+      <video autoPlay loop muted playsInline className={styles.videoBackground}>
+        <source src="https://ou.edu/content/dam/theres-only-one/Longform_Web.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     <div className={styles.container}>
       <h1 className={styles.mainTitle}>OU Mapz</h1>
       <div className={styles.loginFormContainer}>
@@ -93,6 +97,7 @@ function handleGuest() {
         <button onClick={() => handleGuest()}type="submit" className={styles.loginButton}>Continue as Guest</button>
       </div>
       <LoggedInModal/>
+    </div>
     </div>
   );
   
