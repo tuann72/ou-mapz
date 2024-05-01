@@ -21,6 +21,10 @@ const MyMap = () => {
           scaledSize: new google.maps.Size(100, 100), // Scale the icon size
         },
         // Add more icons as needed
+        {
+          url: 'ou-white-logo.png',
+          scaledSize: new google.maps.Size(50, 50),
+        }
       ];
 
 
@@ -63,6 +67,7 @@ const MyMap = () => {
                   position: pos,
                   map: map,
                   title: title,
+                  icon: customIcons[1],
                 })
                 const contentString = `<div style = "color: black;">
                   <h3>${title}</h3>
