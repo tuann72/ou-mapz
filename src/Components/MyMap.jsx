@@ -1,7 +1,9 @@
+
 import React, { useEffect, useRef } from 'react';
 import {getEventsFromDatabase} from '../Components/Events.js'
 
 const MyMap = () => {
+
   const mapRef = useRef(null); // Ref to store the map instance
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const MyMap = () => {
         {
           url: 'ou-marker.png', // URL for the first type of icon
           scaledSize: new google.maps.Size(100, 100), // Scale the icon size
+          anchor: new google.maps.Point(20, 20)
         },
         // Add more icons as needed
         {
@@ -126,7 +129,55 @@ const MyMap = () => {
       document.head.appendChild(script);
     }
 
-  }, []); // This closes the useEffect hook
+  // Define a global function to add markers
+  window.addMarker = (lat, lng, title, description, dateTime) => {
+    if (!mapRef.current) return;
+  
+    const geocoder = new google.maps.Geocoder();
+    const location = { lat, lng };
+
+    const customIcon = {
+      url: 'ou-marker.png', // URL for the first type of icon
+      scaledSize: new google.maps.Size(100, 100), // Scale the icon size
+      anchor: new google.maps.Point(20, 20)
+    };
+  
+    // Reverse geocoding to get address from coordinates
+    geocoder.geocode({ location }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const address = results[0].formatted_address;
+  
+        // Format the date and time
+        const dateTimeFormatted = new Date(dateTime).toLocaleString();
+  
+        // Create and place a new marker
+        const marker = new google.maps.Marker({
+          position: location,
+          map: mapRef.current,
+          title: title , // Setting the title from event name
+          //icon: customIcon,
+        });
+  
+        // Content of the Info Window including the address
+        const contentString = `<div style = "color: black;"><h3>${title}</h3><p>${description}</p><p>Date/Time: ${dateTimeFormatted}</p><p>Address: ${address}</p></div>`;
+  
+        const infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+  
+        marker.addListener('click', () => {
+          infoWindow.open(mapRef.current, marker);
+        });
+  
+        mapRef.current.panTo(new google.maps.LatLng(lat, lng));
+      } else {
+        console.error('Geocoder failed due to: ' + status);
+      }
+    });
+  };
+  
+  
+  }, []);
 
   return <div id="map" style={{ height: '90vh', width: '100%' }} />;
 };

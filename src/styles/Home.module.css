@@ -21,6 +21,7 @@
     padding: 1rem; /* Padding inside the sidebar */
     display: flex;
     flex-direction: column; /* Stack the search and filter vertically */
+    color: black;
   }
   .mapContainer {
     flex-grow: 1; /* Make the map container fill the remaining space */
