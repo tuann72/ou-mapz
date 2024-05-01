@@ -20,11 +20,31 @@ def main():
 
     data = intialize_scraper()
 
-    for i in data:
-        db.collection("Engage Data").add(i)
+    newEntry = 0
 
-    return "data uploaded"
+    for item in data:
+        # Assuming you have a unique field to check for duplicates
+        # For example, if you have a 'title' field that should be unique
+        query = (
+            db.collection("Engage Data")
+            .where("title", "==", item["title"])
+            .where("startDate", "==", item["startDate"])
+            .get()
+        )
+
+        # Check if the item has 'location' and 'address' keys
+        if "location" in item and "address" in item:
+            if not query:
+                # If no documents are found with the same 'title', add the item
+                db.collection("Engage Data").add(item)
+                newEntry += 1
+            else:
+                print(f"Duplicate item found with title: {item['title']}")
+        else:
+            print(f"Skipping item with missing location or address: {item['title']}")
+
+    return "Created: " + str(newEntry) + " entries."
 
 
 if __name__ == "__main__":
-    flaskApp.run(debug=True)
+    flaskApp.run(port=8000, debug=True)

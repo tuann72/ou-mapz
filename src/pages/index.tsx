@@ -1,12 +1,9 @@
 // pages/index.tsx
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import {auth, db} from '../../firebase.js';
-import { create } from 'domain';
-import {collection, addDoc, setDoc, doc, getDoc} from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/authContext';
+import LoggedInModal from '../Components/LoggedInModal'
 
 /*
 This page was created by Mahnoor Saeed and Vishnu Patel
@@ -24,71 +21,11 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   // e is just a temporary variable (event handler) because this function is embedded in the 
   // submit form function in order to test it
-  const { currentUser } = useAuth() // gets the currentUser (logged in or out) from authContext
   const { login } = useAuth() // gets login function from authContext
   const { logout } = useAuth()
 
-  /*
-  if (currentUser) {
-    pageRouter.push('/map') // redirects user to map page if already logged in
-    // idea: instead of redirecting immediately, could prompt user to sign out or redirect
-  }
-  */
  
  
-  async function addData(e: React.FormEvent<HTMLFormElement>){
-  // prevent default form submission behavior
-    e.preventDefault();
-    // get whatever collection is needed(will specify in firebase, in this case users)
-    const usersRef = collection(db,'users');
-    // set a doc in the usersRef collection, we will name it aum
-    await setDoc(doc(usersRef, "aum"), {
-      // this doc will have the parameter data, name aumm age 81
-      name: "aum",
-      age: 81,
-    });
-  }
-  // this function is not yet tested and functional
-  // e is still an event listener which is temporarily needed to test on a form
-  async function getData(e: React.FormEvent<HTMLFormElement>){
-    // prevent default form submission behavior
-    e.preventDefault();
-    // get collection name in this case "users"
-    const collectionRef = "users";
-    const document = "aum";
-    // try to retrieve data
-    try{
-      // get document reference
-      // db is our firebase variable, collection ref is our collection and
-      // document is the doc we are trying to retrieve from firebase in the "users" collection
-      // get doc reference
-      const docRef = doc(db, collectionRef, document);
-      // get the snapshot of data from the reference
-      const docSnap = getDoc(docRef);
-      // get the actual data from snapshot
-      let data = (await docSnap).data
-
-
-    }catch(error){
-      // log any error caught 
-      console.log(error);
-    }
-  }
-  // e is event handler
-  const handleUserCreation = (e: React.FormEvent<HTMLFormElement>) => {
-    // prevent default form behavior
-    e.preventDefault();
-    // login logic here
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // User created and get user info
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error('Error creating user:', error.message);
-      });
-  }
   // e is event handler
 const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   // prevent default form behavior
@@ -96,10 +33,6 @@ const loginUser = (e: React.FormEvent<HTMLFormElement>) => {
   // check authentication in firebase
   login(email, password) // calls login function from authContext
   .then(() => {
-    /* Commented out by Tristen Pham because it was underlined red
-    // Signed in, so get user information/ credential
-    const user = userCredential.user;
-    */
     // reroute user to map page upon successful login
     pageRouter.push('/map')
     // ...
@@ -159,6 +92,7 @@ function handleGuest() {
         </form>
         <button onClick={() => handleGuest()}type="submit" className={styles.loginButton}>Continue as Guest</button>
       </div>
+      <LoggedInModal/>
     </div>
   );
   

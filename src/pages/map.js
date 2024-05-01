@@ -1,6 +1,6 @@
 // pages/map.js
 import React, { useRef, useEffect, useState } from 'react';
-import MyMap from '../components/MyMap';
+import MyMap from '../Components/MyMap';
 import styles from '../styles/Home.module.css';
 import {auth} from '../../firebase.js';
 import {signOut} from 'firebase/auth';

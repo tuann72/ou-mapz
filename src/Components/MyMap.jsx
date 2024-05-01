@@ -1,5 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
+import {getEventsFromDatabase} from '../Components/Events.js'
 
 const MyMap = () => {
 
@@ -23,6 +24,10 @@ const MyMap = () => {
           anchor: new google.maps.Point(20, 20)
         },
         // Add more icons as needed
+        {
+          url: 'ou-white-logo.png',
+          scaledSize: new google.maps.Size(50, 50),
+        }
       ];
 
 
@@ -44,6 +49,50 @@ const MyMap = () => {
         },
         // Add more markers as needed
       ];
+
+      // Webscraped markers
+      getEventsFromDatabase()
+        .then(events => {
+          // Iterate over the events array
+          events.forEach(event => {
+            // Call the getTitle method on each event object
+            const address = event.getAddress();
+            const title = event.getTitle();
+            const description = event.getDescription()
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address }, (results, status) => {
+              if (status === 'OK') {
+                const latitude = results[0].geometry.location.lat();
+                const longitude = results[0].geometry.location.lng();
+
+                const pos = {lat: latitude, lng: longitude}
+                const marker = new google.maps.Marker({
+                  position: pos,
+                  map: map,
+                  title: title,
+                  icon: customIcons[1],
+                })
+                const contentString = `<div style = "color: black;">
+                  <h3>${title}</h3>
+                  <p><strong>Description:</strong> ${description}</p>
+                  <p><strong>Address:</strong> ${address}</p>
+                </div>`;
+
+                const infoWindow = new google.maps.InfoWindow({
+                  content: contentString
+                });
+
+                marker.addListener('click', () => {
+                  infoWindow.open(mapRef.current, marker);
+                });
+
+              }
+            });
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
 
       // Loop through markersData to create markers
       markersData.forEach((markerData) => {
