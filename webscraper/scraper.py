@@ -141,6 +141,15 @@ def formatData(title, info, desc, link):
     except:
         print("Error for " + link)
 
+    # Adding Date and Time to Title
+    jsonInfo["title"] = (
+        jsonInfo["title"]
+        + " on "
+        + jsonInfo["startDate"]
+        + " to "
+        + jsonInfo["endDate"]
+    )
+
     # Set description
 
     jsonInfo["description"] = desc
