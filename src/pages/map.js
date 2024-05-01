@@ -40,31 +40,17 @@ const MapPage = () => {
   };
 
   // Tristen Pham
-
-  const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
   const logButton = useRef();
-
-  /*
-  const addMarkerButton = useRef(); // grabs addMarkerButton from DOM
   useEffect(() => {
-    let markerButton = addMarkerButton.current;
    if (currentUser) {
-    markerButton.hidden = false; // shows addMarkerButton if user is logged in
-
     setLogButtonText("Sign Out")
    }
    else {
-    markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
     setLogButtonText("Sign In")
-
-   }
-   else {
-    markerButton.hidden = true; // hides addMarkerButton if user is not logged in/continued as guest
-
    }
   }, [currentUser]) /* currentUser is a dependency (hiding addMarkerButton depends on whether user is logged in) 
-  so it needs to be included in the dependency array
-  */
+  so it needs to be included in the dependency array */
+  
 
 
   function handleUserAuth() {
@@ -79,19 +65,6 @@ const MapPage = () => {
     else {
       pageRouter.push("/login")
     }
-  }
-
-
-  // Add addMarker functionality here, currently contains code to sign user out
-  function handleClick() {
-    /*
-    signOut(auth).then(() => { // signs out user
-      // Sign-out successful.
-      console.log("logged out")
-    }).catch((error) => {
-      // An error happened.
-    });
-    */
   }
 
   // Xin, Add the addmarker button and the signin/signout button
@@ -129,7 +102,7 @@ const MapPage = () => {
         </div>
         <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
-            <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
+            <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
             <AddMarkerButton />
           </div>
         </div>
