@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { modalStyles, inputFieldStyles, selectFieldStyles, closeButtonStyles, formGroupStyles } from './modalStyles.js'; // Import your styles
@@ -5,20 +6,53 @@ import { places, longitude, latitude } from './CoordinateHashMap.js';
 import DateTimePicker from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { db } from '../../firebase.js';
+import { collection, doc, setDoc, getDoc} from 'firebase/firestore';
+import { auth } from '../../firebase.js';
 
 
+async function handleAddingMarker(date, name, location, description, time){
 
-async function addData(){
-  // get whatever collection is needed(will specify in firebase(example would be users in firebase)
-  const collection = collection(db,'Custom Markers');
-  // set a doc in the usersRef collection, we use the document to specify which doc to modify/ add
-  const data = await setDoc(doc(collection, document), {
-  // this doc will have the parameter data, name aum age 81
-      name: "aum",
-      age: 81,
-  });
-  return data;
-  
+  const docRef = doc(db, "DatesForCustomMarkers", date)
+  const docSnap = await getDoc(docRef)
+  let newMarker
+  if(docSnap.exists()){
+    const dateData = docSnap.data();
+    newMarker = date + '-' + dateData.count;
+    const newData = dateData.CustomMarkerIDArray;
+    newData.push(newMarker);
+    const newCount = dateData.count +1;
+    await setDoc(doc(db, "DatesForCustomMarkers", date), {
+      CustomMarkerIDArray: newData,
+      count: newCount
+    })
+    await setDoc(doc(db, "CustomMarker", newMarker), {
+      eventDescription: description,
+      eventName: name, 
+      eventLocation: location, 
+      startTime: time
+    })
+    return newMarker;
+    
+  }else {
+    // create new doc with todays date and add marker
+    const newArray = []
+    const count =0; 
+    newMarker = date + '-' + count;
+    newArray.push(newMarker);
+    let newCount = count +1;
+    await setDoc(doc(db, "DatesForCustomMarkers", date), {
+      CustomMarkerIDArray: newArray,
+      count: newCount
+    })
+    await setDoc(doc(db, "CustomMarker", newMarker), {
+      eventDescription: description,
+      eventName: name, 
+      eventLocation: location, 
+      startTime: time
+    })
+   
+  }
+  return newMarker;
 }
 
 
@@ -33,6 +67,41 @@ const AddMarkerStyling = () => {
 
   function openModal() {
     setIsOpen(true);
+  }
+  async function addUser(today, newMarker){
+    const user = auth.currentUser;
+    const email = user.email;
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+    
+
+    const dayData = parseDateTime(today);
+    const stringDay = dayData.month + '-' + dayData.day + '-' + dayData.year;
+
+    if(docSnap.exists()){
+      // read in data and update 
+      const userData =docSnap.data();
+      const updatedMarkers = userData.Markers;
+      updatedMarkers.push(newMarker)
+      const updatedDates = userData.MarkerAddDate;
+      updatedDates.push(stringDay);
+    // Update Firestore document with new arrays
+    await setDoc(doc(db, "users", email), {
+      Markers: updatedMarkers,
+      MarkerAddDate: updatedDates,
+    });
+    }else {
+      // create new data
+      const markers = [];
+      markers.push(newMarker);
+      const dates = [];
+      dates.push(stringDay);
+      await setDoc(doc(db, "users", email), {
+        Markers: markers,
+        MarkerAddDate: dates,
+      })
+    }
+    
   }
 
   function closeModal() {
@@ -59,8 +128,36 @@ const AddMarkerStyling = () => {
     };
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     // Here you can submit your form data or perform any other action
+
+    
+    let data = dateTime.toISOString();
+    let dateAndTimeData = parseDateTime(data);
+    let date = dateAndTimeData.month + '-' + dateAndTimeData.day + '-' + dateAndTimeData.year;
+    let startTime = dateAndTimeData.hour + ":" + dateAndTimeData.minute;
+
+    const today = new Date();
+    const sixMonthsLater = new Date(today);
+    sixMonthsLater.setMonth(today.getMonth()+6);
+
+    if(description ===""){
+      alert("The Description was left empty, please add a description to add your event")
+    }else if (eventName === ""){
+      alert("The Event Name was left empty, please add an eventName to add your event")
+    }else if (dateTime > sixMonthsLater){
+      alert("The date you entered is more than 6 months in the future, please select a different date, or wait to add your event.");
+    }else if (location === ""){
+      alert("The Location field was left empty, please add a location to add your event")
+    }else if (dateTime < today){
+      alert("It seems your event is for a day before today, please select a new date in the future to continue.")
+    }
+    else {
+      const newMarker = handleAddingMarker(date, eventName, location, description, startTime);
+      // addUser(today, newMarker)
+      closeModal();
+    }
+
     const lat = latitude.get(location);
     const lng = longitude.get(location);
     const eventTitle = eventName;
@@ -71,6 +168,7 @@ const AddMarkerStyling = () => {
   window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime);
 
   closeModal();
+
   }
 
   const handleDateTimeChange = (newDateTime) => {
@@ -80,7 +178,7 @@ const AddMarkerStyling = () => {
 
   return (
     <div>
-      <button className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={openModal}>Add Marker</button>
+      <button onClick={openModal}>Open Modal</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

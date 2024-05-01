@@ -1,4 +1,5 @@
 const places = {
+    NA: "",
     DaleHall: "Dale Hall",
     NielsonHall: "Nielson Hall",
     CouchCenter: "Couch Center",

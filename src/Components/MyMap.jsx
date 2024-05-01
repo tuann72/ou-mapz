@@ -1,14 +1,24 @@
 
 import React, { useEffect, useRef } from 'react';
 import {getEventsFromDatabase} from '../Components/Events.js'
+import { longitude, latitude } from './CoordinateHashMap';
+import { db } from '../../firebase';
+import { collection, doc, setDoc, getDoc} from 'firebase/firestore';
+
 
 const MyMap = () => {
+  const currentDate = new Date();
+
+      // Get month, day, and year components
+      const month = (currentDate.getMonth() + 1).toString();
+      const day = currentDate.getDate().toString();
+      const year = currentDate.getFullYear();
 
   const mapRef = useRef(null); // Ref to store the map instance
 
   useEffect(() => {
     // Make sure the initMap function is defined globally before loading the script
-    window.initMap = function() {
+    window.initMap = async function() {
       const map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 35.20037131434744, lng: -97.44398323511265 },
         zoom: 13,
@@ -29,6 +39,57 @@ const MyMap = () => {
           scaledSize: new google.maps.Size(50, 50),
         }
       ];
+      
+
+      // Concatenate the components into the desired format
+      const formattedDate = `${month}-${day}-${year}`;
+      console.log(formattedDate);
+      const docRef = doc(db, "DatesForCustomMarkers", formattedDate)
+      const docSnap = await getDoc(docRef)
+      if(docSnap.exists()){
+        const dateData = docSnap.data();
+        const arr = dateData.CustomMarkerIDArray;
+        for(let i =0; i < arr.length; i++){
+          const dat = doc(db, "CustomMarker", arr[i])
+          const datSnap = await getDoc(dat);
+          if(datSnap.exists()){
+            const markerData = datSnap.data()
+            console.log(markerData);
+            const location = markerData.eventLocation;
+            const lat = latitude.get(location);
+            const lon = longitude.get(location);
+            window.addMarker(lat, lon, markerData.eventName, markerData.eventDescription, markerData.startTime)
+            console.log(location)
+
+
+            const marker = new google.maps.Marker({
+              position: {lat: lat, lng: lon},
+              map: map,
+              title: markerData.eventName,
+              icon: customIcons[0],
+            })
+            const contentString = `<div style = "color: black;">
+                  <h3><strong>${markerData.eventName}</strong></h3>
+                  <p><strong>Description:</strong> ${markerData.description}</p>
+                  <p><strong>Address:</strong> ${lat}</p>
+                </div>`;
+            const infoWindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            marker.addListener('click', () => {
+              infoWindow.open(mapRef.current, marker);
+            });
+
+
+
+
+
+          }else {
+            console.log("Not found");
+          }
+        }
+      }
 
       // Webscraped markers
       getEventsFromDatabase()
