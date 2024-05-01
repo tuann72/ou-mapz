@@ -1,5 +1,5 @@
 // pages/index.tsx
-import React, { useState, autoplay, loop, muted, playsInline } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/authContext';

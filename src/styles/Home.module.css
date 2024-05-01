@@ -6,7 +6,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* Aligns content to the top */
-    background: #f232322c; /* Set your desired background color */
     overflow-y: auto;
     padding-top: 20px; /* Adjust this value to move the title closer to the top */
   }
@@ -190,7 +189,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(71, 3, 3, 0.1);
   position: relative;
-  z-index: 1;  /* Ensures that the login form is above the video */
+  z-index: 0;  /* Ensures that the login form is above the video */
 }
 .passwordInput {
   position: relative;
@@ -217,7 +216,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
+  z-index: -2;
 }
 
 .videoContainer {
