@@ -130,11 +130,9 @@ const MapPage = () => {
         <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
             <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
-            <button ref={addMarkerButton} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" hidden={true} onClick={() => handleClick()}> hello</button>
+            <AddMarkerButton />
           </div>
         </div>
-
-      <AddMarkerButton />
 
       </aside>
 
