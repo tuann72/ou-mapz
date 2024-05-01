@@ -30,26 +30,6 @@ const MyMap = () => {
         }
       ];
 
-
-      const markersData = [
-        {
-          position: { lat: 35.21204029964204, lng: -97.4445950663006 },
-          title: 'First Marker - Hideaway pizza',
-          iconType: 0, // Reference to the first icon in customIcons array
-        },
-        {
-          position: { lat: 35.21152589365213, lng: -97.44452510989818 },
-          title: 'Second Marker - Pinkberry',
-          iconType: 0, // Reference to the first icon in customIcons array
-        },
-        {
-          position: { lat: 35.21241589040634, lng: -97.44399512973642 },
-          title: 'Third Marker',
-          iconType: 0, // Reference to the first icon in customIcons array
-        },
-        // Add more markers as needed
-      ];
-
       // Webscraped markers
       getEventsFromDatabase()
         .then(events => {
@@ -94,30 +74,6 @@ const MyMap = () => {
           console.error(error);
         });
 
-      // Loop through markersData to create markers
-      markersData.forEach((markerData) => {
-        const marker = new google.maps.Marker({
-          position: markerData.position,
-          map: map,
-          title: markerData.title,
-          icon: customIcons[markerData.iconType], // Use iconType to select the correct icon from customIcons
-        });
-
-        // Create an info window
-        const infoWindow = new google.maps.InfoWindow({
-          content: `<div style="color: black;">${markerData.title}</div>`,
-        });
-
-        // eventListener to Open InfoWindow on mouseover
-        marker.addListener('mouseover', () => {
-          infoWindow.open(map, marker);
-        });
-
-        // Close InfoWindow on mouseout
-        marker.addListener('mouseout', () => {
-          infoWindow.close();
-        });
-      });
     }; // This closes the window.initMap function
 
     // Check if the Google Maps script is already appended to prevent duplicates
