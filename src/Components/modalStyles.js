@@ -13,6 +13,7 @@ export const modalStyles = {
     borderRadius: '5px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
     width: '600px',
+    color: 'black',
   },
 };
 

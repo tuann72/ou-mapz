@@ -61,14 +61,18 @@ const AddMarkerStyling = () => {
 
   function handleSubmit() {
     // Here you can submit your form data or perform any other action
-    
-    let hey = dateTime.toISOString();
-    console.log(parseDateTime(hey))
-    console.log(location);
-    // You can also reset the form fields or perform any other necessary actions here
+    const lat = latitude.get(location);
+  const lng = longitude.get(location);
+  const eventTitle = eventName;
+  const eventDescription = description;
+  const eventDateTime = dateTime;
 
-    // add to firebase
-    closeModal();
+  // Call the global function to add a marker with additional event details
+  window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime);
+
+  closeModal();
+
+  closeModal();
   }
 
   const handleDateTimeChange = (newDateTime) => {
