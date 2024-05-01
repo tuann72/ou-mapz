@@ -1,5 +1,19 @@
 import React, { useEffect } from 'react';
+import {getEventsFromDatabase} from '../Components/Events.js'
 
+
+getEventsFromDatabase()
+  .then(events => {
+    // Iterate over the events array
+    events.forEach(event => {
+      // Call the getTitle method on each event object
+      const title = event.getAddress();
+      console.log(`Title: ${title}`);
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
 const MyMap = () => {
   useEffect(() => {
     // Make sure the initMap function is defined globally before loading the script
