@@ -32,12 +32,16 @@ def main():
             .get()
         )
 
-        if not query:
-            # If no documents are found with the same 'title', add the item
-            db.collection("Engage Data").add(item)
-            newEntry += 1
+        # Check if the item has 'location' and 'address' keys
+        if "location" in item and "address" in item:
+            if not query:
+                # If no documents are found with the same 'title', add the item
+                db.collection("Engage Data").add(item)
+                newEntry += 1
+            else:
+                print(f"Duplicate item found with title: {item['title']}")
         else:
-            print(f"Duplicate item found with title: {item['title']}")
+            print(f"Skipping item with missing location or address: {item['title']}")
 
     return "Created: " + str(newEntry) + " entries."
 
