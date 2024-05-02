@@ -130,7 +130,7 @@
 .togglePassword {
   position: absolute;
   right: 10px;
-  top: 10px; /* Adjust based on the exact position of your password field */
+  top: 10px; /* Adjust based on the exact position of password field */
   background: none;
   border: none;
   cursor: pointer;
@@ -150,11 +150,12 @@
 .loginButton {
   width: 100%;
   padding: 10px;
-  background-color: #0070f3;
+  background-color: #681010;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .loginButton:hover {
   background-color: #0056b3;
@@ -169,9 +170,9 @@
   padding-top: 0; /* Adjusted to zero, we'll use justify-content to center */
 }
 .mainTitle {
-  font-size: 3rem; /* Increased font size */
+  font-size: 4rem; /* Increased font size */
   color: #ffffff; /* Color of the title */
-  margin-bottom: 2rem; /* Added more space below the title */
+  margin-bottom: 1rem; /* Added more space below the title */
   position: relative;
   z-index: 1;  /* Ensures that the title is above the video */
 }
