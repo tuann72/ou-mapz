@@ -36,7 +36,8 @@ const places = {
     JimThorpeMulticulturalCenter: "Jim Thorpe Multicultural Center",
     ThurmanJWhiteForumBuilding: "Thurman J White, Forum Building",
     SouthOval: "South Oval",
-    AumHouse: "Aum's House"
+    AumHouse: "Aum's House",
+    GroupStudy: "Group Study",
 }
 
 const latitude = new Map();
@@ -76,7 +77,8 @@ latitude.set(places.Goddard, 35.208450407628845)
 latitude.set(places.JimThorpeMulticulturalCenter,35.198609247755456 )
 latitude.set(places.ThurmanJWhiteForumBuilding, 35.19806643009632)
 latitude.set(places.SouthOval, 35.20730135598253)
-
+latitude.set(places.AumHouse, 35.176997318747034)
+latitude.set(places.GroupStudy, 35.2115822742608)
 
 
 const longitude = new Map();
@@ -116,6 +118,8 @@ latitude.set(places.Goddard, -97.44851970245702)
 longitude.set(places.JimThorpeMulticulturalCenter, -97.44578362885716)
 longitude.set(places.ThurmanJWhiteForumBuilding, -97.44538205716377)
 longitude.set(places.SouthOval, -97.44570245712879)
+longitude.set(places.AumHouse, -97.42009947106358)
+longitude.set(places.GroupStudy, -97.44384544836966)
 
 
 

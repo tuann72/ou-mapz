@@ -169,6 +169,30 @@ const AddMarkerStyling = () => {
     const sixMonthsLater = new Date(today);
     sixMonthsLater.setMonth(today.getMonth()+6);
 
+    const user = auth.currentUser;
+    const email = user.email;
+    const tdy = new Date();
+    const dayDat = parseDateTime(tdy);
+    const stringsy = dayDat.month + '-' + dayDat.day + '-' + dayDat.year;
+    const docRef = doc(db, "users", email);
+    const docSnap = await getDoc(docRef);
+    let lessThanFiveMarkersToday = false;
+    if(docSnap.exists()){
+      const userData =docSnap.data();
+      const markeraddDay = userData.MarkerAddDate;
+      let count =0;
+      if(markeraddDay.length >= 5){
+        for(let i =0; i < markeraddDay.length; i++){
+          if(stringsy == markeraddDay[i]){
+            count++;
+          }
+        }
+        if(count >= 5){
+          lessThanFiveMarkersToday = true;
+        }
+      }
+    }
+
     if(description ===""){
       alert("The Description was left empty, please add a description to add your event")
     }else if (eventName === ""){
@@ -179,6 +203,8 @@ const AddMarkerStyling = () => {
       alert("The Location field was left empty, please add a location to add your event")
     }else if (dateTime < today){
       alert("It seems your event is for a day before today, please select a new date in the future to continue.")
+    }else if (lessThanFiveMarkersToday){
+      alert("You have added too many markers today, please wait to add more markers")
     }
     else {
       const newMarker = handleAddingMarker(date, eventName, location, description, startTime);
