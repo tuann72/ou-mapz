@@ -114,7 +114,6 @@ const MapPage = () => {
       <main className={styles.mapContainer}> 
         <h1 className="flex justify-center text-4xl font-semibold bg-gradient-to-b from-red-300 to-red-900 text-white">OU MAPZ</h1>
         <MyMap />
-        
       </main>
     </div>
   );
