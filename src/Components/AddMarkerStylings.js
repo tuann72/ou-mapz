@@ -9,9 +9,28 @@ import { db } from '../../firebase.js';
 import { collection, doc, setDoc, getDoc} from 'firebase/firestore';
 import { auth } from '../../firebase.js';
 
+function parseDateTime(dateTimeString) {
+  // Parse the datetime string into a Date object
+  const dateTime = new Date(dateTimeString);
+
+  // Extract year, month, day, hour, and minute components
+  const year = dateTime.getFullYear();
+  const month = dateTime.getMonth() + 1; // Months are zero-based, so we add 1
+  const day = dateTime.getDate();
+  const hour = dateTime.getHours();
+  const minute = dateTime.getMinutes();
+
+  // Return an object containing the extracted components
+  return {
+    year,
+    month,
+    day,
+    hour,
+    minute
+  };
+}
 
 async function handleAddingMarker(date, name, location, description, time){
-
   const docRef = doc(db, "DatesForCustomMarkers", date)
   const docSnap = await getDoc(docRef)
   let newMarker
@@ -31,7 +50,8 @@ async function handleAddingMarker(date, name, location, description, time){
       eventLocation: location, 
       startTime: time
     })
-    return newMarker;
+
+    ;
     
   }else {
     // create new doc with todays date and add marker
@@ -52,7 +72,49 @@ async function handleAddingMarker(date, name, location, description, time){
     })
    
   }
-  return newMarker;
+    const today = new Date();
+    addUser(today, newMarker)
+     
+    
+}
+
+async function addUser(today, newMarker){
+  const user = auth.currentUser;
+  const email = user.email;
+  const docRef = doc(db, "users", email);
+  const docSnap = await getDoc(docRef);
+  
+
+  const dayData = parseDateTime(today);
+  const stringDay = dayData.month + '-' + dayData.day + '-' + dayData.year;
+
+  if(docSnap.exists()){
+    // read in data and update 
+    const userData =docSnap.data();
+    const updatedMarkers = userData.Markers;
+    const newnewMarker = "" + newMarker;
+    updatedMarkers.push(newnewMarker)
+    const updatedDates = userData.MarkerAddDate;
+    updatedDates.push(stringDay);
+  // Update Firestore document with new arrays
+  await setDoc(doc(db, "users", email), {
+    Markers: updatedMarkers,
+    MarkerAddDate: updatedDates,
+  });
+  }else {
+    // create new data
+    const markers = [];
+    const newnewMarker = newMarker.toString()
+    markers.push(newnewMarker);
+    const dates = [];
+    dates.push(stringDay);
+
+    await setDoc(doc(db, "users", email), {
+      Markers: markers,
+      MarkerAddDate: dates,
+    })
+  }
+  
 }
 
 
@@ -68,41 +130,7 @@ const AddMarkerStyling = () => {
   function openModal() {
     setIsOpen(true);
   }
-  async function addUser(today, newMarker){
-    const user = auth.currentUser;
-    const email = user.email;
-    const docRef = doc(db, "users", email);
-    const docSnap = await getDoc(docRef);
-    
-
-    const dayData = parseDateTime(today);
-    const stringDay = dayData.month + '-' + dayData.day + '-' + dayData.year;
-
-    if(docSnap.exists()){
-      // read in data and update 
-      const userData =docSnap.data();
-      const updatedMarkers = userData.Markers;
-      updatedMarkers.push(newMarker)
-      const updatedDates = userData.MarkerAddDate;
-      updatedDates.push(stringDay);
-    // Update Firestore document with new arrays
-    await setDoc(doc(db, "users", email), {
-      Markers: updatedMarkers,
-      MarkerAddDate: updatedDates,
-    });
-    }else {
-      // create new data
-      const markers = [];
-      markers.push(newMarker);
-      const dates = [];
-      dates.push(stringDay);
-      await setDoc(doc(db, "users", email), {
-        Markers: markers,
-        MarkerAddDate: dates,
-      })
-    }
-    
-  }
+  
 
   function closeModal() {
     setIsOpen(false);
@@ -166,7 +194,13 @@ const AddMarkerStyling = () => {
 
   // Call the global function to add a marker with additional event details
   window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime, 0);
-
+  if(dateAndTimeData.day > today.getDate()){
+    console.log(dateAndTimeData.day);
+    console.log(today.day);
+    setTimeout(()=> {
+      window.location.reload();
+    }, 1.0 * 1000);
+  }
   closeModal();
 
   }
