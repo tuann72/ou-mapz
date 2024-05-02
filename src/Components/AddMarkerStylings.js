@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { modalStyles, inputFieldStyles, selectFieldStyles, closeButtonStyles, formGroupStyles } from './modalStyles.js'; // Import your styles
+import { modalStyles, inputFieldStyles, selectFieldStyles, closeButtonStyles, formGroupStyles, buttonContainer } from './modalStyles.js'; // Import your styles
 import { places, longitude, latitude } from './CoordinateHashMap.js';
 import DateTimePicker from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -220,19 +220,18 @@ const AddMarkerStyling = () => {
           ...modalStyles,
           content: {
             ...modalStyles.content,
-            backgroundColor: '#f9f9f9',
             padding: '20px',
             border: 'none'
           }
         }}
         contentLabel="Example Modal"
         id="modal"
+        shouldCloseOnOverlayClick={false}
       >
         <div style={{ marginBottom: '20px' }}>
           <label>Event Name:</label>
           <input type="text" name="name" style={inputFieldStyles} value={eventName} onChange={(e) => setEventName(e.target.value)} />
         </div>
-        <button onClick={closeModal} style={closeButtonStyles}>Close</button>
         <form>
           <div style={formGroupStyles}>
             <label>Location:</label>
@@ -243,16 +242,21 @@ const AddMarkerStyling = () => {
             </select>
           </div>
           <label>Date and Time:</label>
-          <DateTimePicker
-      value={dateTime}
-      onChange={handleDateTimeChange}
-    />
+          <div style={{color: 'black'}}>
+            <DateTimePicker
+            value={dateTime}
+            onChange={handleDateTimeChange}
+            />
+          </div>
           <div className="form-group">
-            <label>Description:</label>
-            <input type="text" name="description" className="input-field" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label>Description: </label>
+            <input type="text" name="description" className="input-field" style={inputFieldStyles} value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
         </form>
-        <button onClick={handleSubmit} style={{ backgroundColor: 'crimson', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'block', margin: '0 auto' }}>Finish</button>
+        <div style={{display: 'flex', width: '100%', height: '50px', alignItems: 'flex-end', justifyContent: 'space-between',}}>
+          <button onClick={closeModal} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Cancel</button>
+          <button onClick={handleSubmit} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Add Marker</button>
+        </div>
       </Modal>
     </div>
   );
