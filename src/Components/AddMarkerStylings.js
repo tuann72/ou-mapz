@@ -186,19 +186,18 @@ const AddMarkerStyling = () => {
           ...modalStyles,
           content: {
             ...modalStyles.content,
-            backgroundColor: '#f9f9f9',
             padding: '20px',
             border: 'none'
           }
         }}
         contentLabel="Example Modal"
         id="modal"
+        shouldCloseOnOverlayClick={false}
       >
         <div style={{ marginBottom: '20px' }}>
           <label>Event Name:</label>
           <input type="text" name="name" style={inputFieldStyles} value={eventName} onChange={(e) => setEventName(e.target.value)} />
         </div>
-        <button onClick={closeModal} style={closeButtonStyles}>Close</button>
         <form>
           <div style={formGroupStyles}>
             <label>Location:</label>
@@ -214,11 +213,12 @@ const AddMarkerStyling = () => {
       onChange={handleDateTimeChange}
     />
           <div className="form-group">
-            <label>Description:</label>
-            <input type="text" name="description" className="input-field" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label>Description: </label>
+            <input type="text" name="description" className="input-field" style={inputFieldStyles} value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
         </form>
-        <button onClick={handleSubmit} style={{ backgroundColor: 'crimson', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'block', margin: '0 auto' }}>Finish</button>
+        <button onClick={handleSubmit} style={{ backgroundColor: 'rgb(59 130 246)', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'block', margin: '0 auto' }}>Add Marker</button>
+        <button onClick={closeModal} style={closeButtonStyles}>Cancel</button>
       </Modal>
     </div>
   );
