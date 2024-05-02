@@ -58,33 +58,8 @@ const MyMap = () => {
             const location = markerData.eventLocation;
             const lat = latitude.get(location);
             const lon = longitude.get(location);
-            window.addMarker(lat, lon, markerData.eventName, markerData.eventDescription, markerData.startTime)
+            window.addMarker(lat, lon, markerData.eventName, markerData.eventDescription, markerData.startTime, 0)
             console.log(location)
-
-
-            const marker = new google.maps.Marker({
-              position: {lat: lat, lng: lon},
-              map: map,
-              title: markerData.eventName,
-              icon: customIcons[0],
-            })
-            const contentString = `<div style = "color: black;">
-                  <h3><strong>${markerData.eventName}</strong></h3>
-                  <p><strong>Description:</strong> ${markerData.description}</p>
-                  <p><strong>Address:</strong> ${lat}</p>
-                </div>`;
-            const infoWindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-
-            marker.addListener('click', () => {
-              infoWindow.open(mapRef.current, marker);
-            });
-
-
-
-
-
           }else {
             console.log("Not found");
           }
@@ -147,17 +122,23 @@ const MyMap = () => {
     }
 
   // Define a global function to add markers
-  window.addMarker = (lat, lng, title, description, dateTime) => {
+  window.addMarker = (lat, lng, title, description, dateTime, iconIndex) => {
     if (!mapRef.current) return;
   
     const geocoder = new google.maps.Geocoder();
     const location = { lat, lng };
-
-    const customIcon = {
-      url: 'ou-marker.png', // URL for the first type of icon
-      scaledSize: new google.maps.Size(100, 100), // Scale the icon size
-      anchor: new google.maps.Point(20, 20)
-    };
+    const customIcons = [
+      {
+        url: 'ou-marker.png', // URL for the first type of icon
+        scaledSize: new google.maps.Size(100, 100), // Scale the icon size
+        anchor: new google.maps.Point(20, 20)
+      },
+      // Add more icons as needed
+      {
+        url: 'ou-white-logo.png',
+        scaledSize: new google.maps.Size(50, 50),
+      }
+    ];
   
     // Reverse geocoding to get address from coordinates
     geocoder.geocode({ location }, (results, status) => {
@@ -172,7 +153,7 @@ const MyMap = () => {
           position: location,
           map: mapRef.current,
           title: title , // Setting the title from event name
-          //icon: customIcon,
+          icon: customIcons[iconIndex],
         });
   
         // Content of the Info Window including the address

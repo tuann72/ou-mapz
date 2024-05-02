@@ -165,7 +165,7 @@ const AddMarkerStyling = () => {
     const eventDateTime = dateTime;
 
   // Call the global function to add a marker with additional event details
-  window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime);
+  window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime, 0);
 
   closeModal();
 
@@ -178,7 +178,7 @@ const AddMarkerStyling = () => {
 
   return (
     <div>
-      <button onClick={openModal}>Open Modal</button>
+      <button className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={openModal}>Add Marker</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
