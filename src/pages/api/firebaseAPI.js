@@ -69,4 +69,4 @@ const loginUser = (email, password) => {
     });
 }
 
-export {loginUser, handleUserCreation, addData, getData};
+export {loginUser, handleUserCreation};
