@@ -280,8 +280,8 @@ const AddMarkerStyling = () => {
           </div>
         </form>
         <div style={{display: 'flex', width: '100%', height: '50px', alignItems: 'flex-end', justifyContent: 'space-between',}}>
-          <button onClick={closeModal} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Cancel</button>
-          <button onClick={handleSubmit} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Add Marker</button>
+          <button onClick={closeModal} className="bg-blue-500 rounded-md border-none py-2 px-4 border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Cancel</button>
+          <button onClick={handleSubmit} className="bg-blue-500 rounded-md border-none py-2 px-4border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Add Marker</button>
         </div>
       </Modal>
     </div>

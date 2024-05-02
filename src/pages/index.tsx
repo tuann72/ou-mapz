@@ -64,7 +64,7 @@ function handleGuest() {
         Your browser does not support the video tag.
       </video>
     <div className={styles.container}>
-      <h1 className={styles.mainTitle}>OU Mapz</h1>
+      <h1 className="w-full flex justify-center text-8xl text-white font-semibold">OU Mapz</h1>
       <div className={styles.loginFormContainer}>
         <form onSubmit={(e) => loginUser(e)} // please don't edit this line, or if you are just save original version as well -vishnu 
         className={styles.loginForm}> 
