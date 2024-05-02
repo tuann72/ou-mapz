@@ -158,7 +158,7 @@
   margin-bottom: 10px;
 }
 .loginButton:hover {
-  background-color: #0056b3;
+  background-color: #460e0e;
 }
 .container {
   display: flex;
@@ -174,7 +174,9 @@
   color: #ffffff; /* Color of the title */
   margin-bottom: 1rem; /* Added more space below the title */
   position: relative;
+  top: 10mm;
   z-index: 1;  /* Ensures that the title is above the video */
+  
 }
 .loginForm {
   padding: 40px;
