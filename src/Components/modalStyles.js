@@ -36,11 +36,13 @@ export const selectFieldStyles = {
 };
 
 export const closeButtonStyles = {
-  position: 'absolute',
   backgroundColor: 'rgb(59 130 246)',
   border: 'none',
-  padding: '10px 20px',
-  borderRadius: '5px',
+  padding: '0.5rem 1rem',
+  borderRadius: '0.25rem',
+  borderBottom: '4px solid rgb(29 78 216)',
+  fontSize: '0.875rem',
+  fontWeight: 'bold',
   cursor: 'pointer',
   color: 'white',
 };
@@ -48,4 +50,13 @@ export const closeButtonStyles = {
 
 export const formGroupStyles = {
   marginBottom: '15px',
+};
+
+export const buttonContainer = {
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'black',
+  alignItems: 'flex-end',
+  justifyContent: 'space-between',
 };

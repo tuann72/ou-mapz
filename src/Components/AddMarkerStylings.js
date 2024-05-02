@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { modalStyles, inputFieldStyles, selectFieldStyles, closeButtonStyles, formGroupStyles } from './modalStyles.js'; // Import your styles
+import { modalStyles, inputFieldStyles, selectFieldStyles, closeButtonStyles, formGroupStyles, buttonContainer } from './modalStyles.js'; // Import your styles
 import { places, longitude, latitude } from './CoordinateHashMap.js';
 import DateTimePicker from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -219,8 +219,10 @@ const AddMarkerStyling = () => {
             <input type="text" name="description" className="input-field" style={inputFieldStyles} value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
         </form>
-        <button onClick={handleSubmit} style={{ backgroundColor: 'rgb(59 130 246)', color: 'white', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', display: 'block', margin: '0 auto' }}>Add Marker</button>
-        <button onClick={closeModal} style={closeButtonStyles}>Cancel</button>
+        <div style={{display: 'flex', width: '100%', height: '50px', alignItems: 'flex-end', justifyContent: 'space-between',}}>
+          <button onClick={closeModal} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Cancel</button>
+          <button onClick={handleSubmit} className="bg-blue-500 rounded-md border-none py-2 px-4 rounded border-b-4 divide-solid border-blue-700 text-sm font-bold cursor-pointer text-white hover:bg-blue-400 hover:border-blue-500">Add Marker</button>
+        </div>
       </Modal>
     </div>
   );
