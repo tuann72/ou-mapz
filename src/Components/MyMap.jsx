@@ -4,6 +4,7 @@ import {getEventsFromDatabase} from '../Components/Events.js'
 import { longitude, latitude } from './CoordinateHashMap';
 import { db } from '../../firebase';
 import { collection, doc, setDoc, getDoc} from 'firebase/firestore';
+import { type } from 'os';
 
 
 const MyMap = () => {
@@ -154,6 +155,7 @@ const MyMap = () => {
           map: mapRef.current,
           title: title , // Setting the title from event name
           icon: customIcons[iconIndex],
+          
         });
   
         // Content of the Info Window including the address

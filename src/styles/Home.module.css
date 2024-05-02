@@ -226,3 +226,29 @@
   height: 100vh;
   overflow: hidden;
 }
+
+
+/* css for filters (Aum) */
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.searchInput {
+  margin-bottom: 10px; /* Adds space between the search input and the checkbox line */
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column; /* Stack the checkboxes vertically */
+  gap: 5px; /* Adds space between checkbox rows */
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center; /* Aligns the checkbox and label text vertically */
+  gap: 10px; /* Adds space between the checkbox and the label text */
+}
+

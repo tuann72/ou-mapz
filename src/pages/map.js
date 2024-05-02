@@ -39,6 +39,14 @@ const MapPage = () => {
     // Implement what happens when you click a suggestion
   };
 
+
+  // Aum Patel
+  /// filters
+
+  const [showUserMark, setShowUserMark] = useState(true);  // To toggle user input visibility
+  const [showScraped, setShowScraped] = useState(true);  // To toggle hardcoded data visibility
+
+
   // Tristen Pham
   const logButton = useRef();
   useEffect(() => {
@@ -73,33 +81,33 @@ const MapPage = () => {
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
-        <div className={styles.searchContainer}>
+      <div className={styles.filterContainer}>
+      <input
+        type="text"
+        placeholder="Search Events ..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
+      <div className={styles.checkboxGroup}>
+        <label className={styles.checkboxLabel}>
           <input
-            type="text"
-            placeholder="Search OUMapz"
-            value={searchTerm}
-            onChange={handleSearch}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // hides suggestions with a delay 1
-            className={styles.searchInput} />
-          {showSuggestions && (
-
-            <ul className={styles.suggestions}>
-
-              {suggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className={styles.suggestionItem}
-                >
-                  {suggestion}
-                </li>
-
-              ))}
-            </ul>
-          )}
-
-        </div>
+            type="checkbox"
+            checked={showUserMark}
+            onChange={() => setShowUserMark(!showUserMark)}
+          />
+          Show Custom Events
+        </label>
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            checked={showScraped}
+            onChange={() => setShowScraped(!showScraped)}
+          />
+          Show University Events
+        </label>
+      </div>
+    </div>
         <div className='flex h-full items-end justify-center'>
           <div className="flex w-full justify-between">
             <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
