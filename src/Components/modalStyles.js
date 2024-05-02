@@ -24,6 +24,7 @@ export const inputFieldStyles = {
   marginBottom: '5px',
   padding: '5px',
   width: '100%',
+  color: 'black'
 };
 
 export const selectFieldStyles = {
@@ -31,6 +32,7 @@ export const selectFieldStyles = {
   marginBottom: '5px',
   padding: '5px',
   width: '100%',
+  color: 'black'
 };
 
 export const closeButtonStyles = {

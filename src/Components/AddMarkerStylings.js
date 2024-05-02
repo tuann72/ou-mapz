@@ -208,10 +208,12 @@ const AddMarkerStyling = () => {
             </select>
           </div>
           <label>Date and Time:</label>
-          <DateTimePicker
-      value={dateTime}
-      onChange={handleDateTimeChange}
-    />
+          <div style={{color: 'black'}}>
+            <DateTimePicker
+            value={dateTime}
+            onChange={handleDateTimeChange}
+            />
+          </div>
           <div className="form-group">
             <label>Description: </label>
             <input type="text" name="description" className="input-field" style={inputFieldStyles} value={description} onChange={(e) => setDescription(e.target.value)} />
