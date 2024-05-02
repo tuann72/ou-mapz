@@ -90,7 +90,6 @@ function handleGuest() {
               {showPassword ? 'hide' : 'show'}
             </span>
           </div>
-          <a href="#" className={styles.forgotPassword}>Forgot password?</a>
           <button type="submit" className={styles.loginButton}>Sign in</button>
           <button onClick={() => pageRouter.push('/register')}type="submit" className={styles.loginButton}>Register</button> 
         </form>
