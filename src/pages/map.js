@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 
 import Popup from 'reactjs-popup';
 import AddMarkerButton from '../Components/AddMarkerButton.js';
+import DeleteMarkerRender from '../Components/DeleteMarkerRender.js';
 
 const MapPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -104,6 +105,7 @@ const MapPage = () => {
           <div className="flex w-full justify-between">
             <button ref={logButton} className="bg-blue-500 hover:bg-blue-400 text-white text-sm font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" onClick={() => handleUserAuth()}>{logButtonText}</button>
             <AddMarkerButton />
+            <DeleteMarkerRender/>
           </div>
         </div>
 
