@@ -166,7 +166,15 @@ const AddMarkerStyling = () => {
 
   // Call the global function to add a marker with additional event details
   window.addMarker(lat, lng, eventTitle, eventDescription, eventDateTime, 0);
-
+  console.log(dateAndTimeData.day);
+  console.log(today.getDate());
+  if(dateAndTimeData.day > today.getDate()){
+    console.log(dateAndTimeData.day);
+    console.log(today.day);
+    setTimeout(()=> {
+      window.location.reload();
+    }, 0.5 * 1000);
+  }
   closeModal();
 
   }
