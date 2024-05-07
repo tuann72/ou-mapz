@@ -4,10 +4,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 
 
-
-![Uploading Screenshot 2024-05-07 at 12.30.39 PM.png…]()
-
-
 # Technology
 
 - Google Map API v1.11.3 to integrate a interactive map.
