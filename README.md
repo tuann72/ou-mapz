@@ -6,20 +6,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 # Technology
 
-- Google Map API v1.11.3 to integrate a interactive map.
-- Firebase v13.1 as a backend and user authentication.
-- BeautifulSoup4 for webscraping. v4.12.3
-- React v18 for frontend
-  - Nextjs Framework v.14.1.4
-
-# Version
-
-Current version is 1.0.0
+All technologies are listed in the requirement.txt and package.json.
 
 # File Layout
 
-- The main UI of the app is based off of App.tsx
-- This is based in the function App, in the return statement
+- The main web app is in /src.
+- The python webscraper is in /webscraper.
 
 # How to use/contribute
 
@@ -31,19 +23,31 @@ Current version is 1.0.0
 ```bash
 git clone https://github.com/tuann72/OU-Mapz
 ```
- Download node modules 
- ```bash 
- npm -i 
-```
-or 
+Download node modules
 ```bash
-npm install next
-```
-also install firebase
-```bash
-npm install firebase
+npm install
 ```
 
+If you plan to test the webscraper, you will need to install the requirements for python.
+
+Make sure you are in the webscraper folder.
+```bash
+cd webscraper
+```
+
+For Windows installation.
+```bash
+pip install -r requirements. txt
+```
+
+For Mac installation.
+```bash
+pip3 install -r requirements. txt
+```
+
+## Additional requirements.
+You will need a firebase account with a database API.
+Additionally for the webscraper, to enable its ability to scrape and store markers you will need a firebase credentials in a json file in the root folder.
 
 ## Contribute
 
