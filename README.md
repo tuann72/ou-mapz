@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 # How It Should Display
-
+![Alt text]([/relative/path/to/img](/OU_Mapz_TestImage.png).png?raw=true "Optional Title")
 
 
 # Technology
